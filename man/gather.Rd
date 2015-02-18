@@ -4,10 +4,10 @@
 \alias{gather}
 \title{Gets the vector of a particular variable within a dplyr postgres table.}
 \usage{
-gather(pdf, ...)
+gather(pt, ...)
 }
 \arguments{
-\item{pdf}{data frame.  The data to be transformed.}
+\item{pt}{postgres.  The postgres table.}
 
 \item{variable}{character. The name of the variable to gather.}
 }
