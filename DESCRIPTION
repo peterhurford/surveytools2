@@ -10,7 +10,8 @@ Depends:
 License: MIT <http://opensource.org/licenses/MIT>
 LazyData: true
 Imports:
-    dplyr
+    dplyr,
+    purrr
 Suggests:
     testthat,
     testthatsomemore,
