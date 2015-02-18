@@ -2,4 +2,5 @@
 
 export(gather)
 export(get_names)
+export(ignore_by_grep)
 export(swap_by_value)
