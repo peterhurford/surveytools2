@@ -2,16 +2,18 @@
 % Please edit documentation in R/add_prefix_to_table_names.R
 \name{add_prefix_to_table_names}
 \alias{add_prefix_to_table_names}
-\title{Gets the vector of a particular variable within a dplyr postgres table.}
+\title{Adds a prefix to the names of a table.}
 \usage{
 add_prefix_to_table_names(df, prefix, except = NULL)
 }
 \arguments{
-\item{pt}{postgres.  The postgres table.}
+\item{df}{dataframe.  The dataframe to change the names of.}
 
-\item{variable}{character. The name of the variable to gather.}
+\item{prefix}{character. The prefix to add to the names.}
+
+\item{except}{character. A vector of variables to not apply the prefix to.}
 }
 \description{
-Gets the vector of a particular variable within a dplyr postgres table.
+Adds a prefix to the names of a table.
 }
 

@@ -1,7 +1,8 @@
-#' Gets the vector of a particular variable within a dplyr postgres table.
+#' Adds a prefix to the names of a table.
 #'
-#' @param pt postgres.  The postgres table.
-#' @param variable character. The name of the variable to gather.
+#' @param df dataframe.  The dataframe to change the names of.
+#' @param prefix character. The prefix to add to the names.
+#' @param except character. A vector of variables to not apply the prefix to.
 #' @export
 add_prefix_to_table_names <- function(df, prefix, except = NULL) {
   df %>% get_names %>% as.list -> l
