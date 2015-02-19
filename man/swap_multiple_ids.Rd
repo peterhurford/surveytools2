@@ -2,7 +2,9 @@
 % Please edit documentation in R/swap_multiple_ids.R
 \name{swap_multiple_ids}
 \alias{swap_multiple_ids}
-\title{For all ids specified, sets their value to the assigned value within a given variable.}
+\title{For all ids specified, sets their value to the assigned value within a given variable.
+Like swap_by_ids, but for multiple ids and one swap value.
+Useful for imputation.}
 \usage{
 swap_multiple_ids(df, variable, ids, value)
 }
@@ -17,5 +19,10 @@ swap_multiple_ids(df, variable, ids, value)
 }
 \description{
 For all ids specified, sets their value to the assigned value within a given variable.
+Like swap_by_ids, but for multiple ids and one swap value.
+Useful for imputation.
+}
+\seealso{
+swap_by_ids
 }
 

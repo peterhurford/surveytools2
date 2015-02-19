@@ -2,7 +2,8 @@
 % Please edit documentation in R/swap_by_value.R
 \name{swap_by_value}
 \alias{swap_by_value}
-\title{Renames values within a dataframe.}
+\title{Renames values within a dataframe based on a list of swaps to make.
+Useful for imputation.}
 \usage{
 swap_by_value(df, variable, swap_list)
 }
@@ -12,10 +13,11 @@ swap_by_value(df, variable, swap_list)
 \item{variable}{character. The name of the variable in df where the replacement occurs.}
 
 \item{swap_list}{list. A list mapping current values to what they should be.
-e.g., to replace all instances of "dog" witih "cat", use
+e.g., to replace all instances of "dog" with "cat", use
 \code{list('dog' = 'cat')}}
 }
 \description{
-Renames values within a dataframe.
+Renames values within a dataframe based on a list of swaps to make.
+Useful for imputation.
 }
 
