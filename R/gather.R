@@ -4,5 +4,4 @@
 #' @param variable character. The name of the variable to gather.
 #' @export
 gather <- function(pt, ...)
-  pt %>% dplyr::select_(lazyeval::lazy_dots(...)[[1]]) %>% collect %>%
-    .[[1]] %>% unique
+  pt %>% dplyr::select_(lazyeval::lazy_dots(...)[[1]]) %>% collect %>% .[[1]]
