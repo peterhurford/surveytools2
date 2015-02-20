@@ -29,7 +29,7 @@ dplyr_table_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRU
       for (i in seq(t)) o <- c(o, paste0(t[[i]], " (", pt[[i]] * 100, "%)"))
       class(o) <- c('surveytools2_dplyr_table', class(o))
       if (length(dim(t)) > 1) {
-        o <- matrix(o, dim(t)[[2]], dim(t)[[1]])
+        o <- matrix(o, dim(t)[[1]], dim(t)[[2]])
         dimnames(o) <- dimnames(t)
       } else {
         names(o) <- rownames(t)
