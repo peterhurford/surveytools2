@@ -20,6 +20,10 @@ dplyr_table_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRU
     if (length(dim(t)) == 1) byrow <- NULL
     if (!is.null(byrow)) { byrow <- if (isTRUE(byrow)) 1 else 2 }
     pt <- prop.table(t, byrow) %>% round(digit = 4)
+    if (isTRUE(freq) & length(.dots) > 2) {
+      warning("Dplyr table does not yet support frequency and percent crosstabs with more than two variables. Switching to percent only.")
+      freq <- FALSE
+    }
     if (isTRUE(freq)) {
       o <- NULL
       for (i in seq(t)) o <- c(o, paste0(t[[i]], " (", pt[[i]] * 100, "%)"))
