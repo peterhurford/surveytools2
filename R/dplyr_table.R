@@ -15,7 +15,11 @@ dplyr_table <- function(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, 
 #' @export
 dplyr_table_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE) {
   if (!isTRUE(freq) & !isTRUE(percent)) stop('No frequency and no percent makes for a blank table.')
-  t <- do.call(table, lapply(.dots, function(d) .data[[as.character(d$expr)]]))
+  t <- do.call(table, lapply(.dots, function(d) {
+    if (identical(class(d), 'lazy')) .data[[as.character(d$expr)]]
+    else if (is.character(d)) .data[[d]]
+    else stop('Class not recognized')
+  }))
   if (isTRUE(percent)) {
     if (length(dim(t)) == 1) byrow <- NULL
     if (!is.null(byrow)) { byrow <- if (isTRUE(byrow)) 1 else 2 }
