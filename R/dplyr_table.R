@@ -8,17 +8,20 @@
 #' @param byrow logical. If true, percentages are row percentages.  If false, column percentages.  If NULL, individual cell percentages.
 #' @param sort logical. If true, the resulting table is sorted (if possible).
 #' @param sort.decreasing logical. If true, the sort is preformed in a descending manner.
+#' @param na.rm logical. If true, all NAs and NA-like entries are removed from the data before tabling.
 #' @export
-dplyr_table <- function(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE)
-  dplyr_table_(.data, .dots = lazyeval::lazy_dots(...), freq = freq, percent = percent, byrow = byrow, sort = sort, sort.decreasing = sort.decreasing)
+dplyr_table <- function(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE)
+  dplyr_table_(.data, .dots = lazyeval::lazy_dots(...), freq = freq, percent = percent, byrow = byrow, sort = sort, sort.decreasing = sort.decreasing, na.rm = na.rm)
 
 #' @export
-dplyr_table_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE) {
+dplyr_table_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE) {
   if (!isTRUE(freq) & !isTRUE(percent)) stop('No frequency and no percent makes for a blank table.')
   t <- do.call(table, lapply(.dots, function(d) {
-    if (identical(class(d), 'lazy')) .data[[as.character(d$expr)]]
+    dd <- if (identical(class(d), 'lazy')) .data[[as.character(d$expr)]]
     else if (is.character(d)) .data[[d]]
     else stop('Class not recognized')
+    if (isTRUE(na.rm)) dd <- na.rm(dd)
+    dd
   }))
   if (isTRUE(percent)) {
     if (length(dim(t)) == 1) byrow <- NULL

@@ -6,7 +6,7 @@
 Try to make Hadley proud.}
 \usage{
 dplyr_table(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE,
-  sort = TRUE, sort.decreasing = TRUE)
+  sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE)
 }
 \arguments{
 \item{.data}{data frame. The data to put in the table.}
@@ -22,6 +22,8 @@ dplyr_table(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE,
 \item{sort}{logical. If true, the resulting table is sorted (if possible).}
 
 \item{sort.decreasing}{logical. If true, the sort is preformed in a descending manner.}
+
+\item{na.rm}{logical. If true, all NAs and NA-like entries are removed from the data before tabling.}
 }
 \description{
 Makes a fancy table, using dplyr-like syntax, but inspired from `tab` from STATA.
