@@ -14,3 +14,9 @@ breakdown <- function(df, variable, breakdowns) {
     paste(length(y[y > x]), 'respondants >= ', x)
   })
 }
+
+#' @export
+numeric_breakdown <- function(df, variable, breakdowns) {
+  o <- breakdown(df, variable, breakdowns)
+  sapply(o, function(x) as.integer(strsplit(x, " ")[[1]][[1]]))
+}

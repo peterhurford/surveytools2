@@ -1,5 +1,5 @@
 ## Surveytools2
-Surveytools2 is a collection of R functions that make working with dplyr on survey analysis just a little bit better.  Inspired by dplyr and my previous surveytools package.
+Surveytools2 is a collection of R functions that make working with dplyr on survey analysis just a little bit better.  Inspired by Hadley's [dplyr](http://www.github.com/hadley/dplyr) package and my previous [surveytools](http://www.github.com/peterhurford/surveytools) package.  Surveytools2 works to extend dplyr's functionality to include more methods useful for survey analysis.
 
 ## Installation
 
@@ -9,6 +9,89 @@ This package is not yet available from CRAN. To install the latest development b
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github('peterhurford', 'surveytools')
 ```
+
+## Dplyr
+
+Dplyr and smbache's [Magrittr](http://www.github.com/smbache/magrittr) have revolutionized how we do data analysis in R.
+
+Previously, we might analyze a survey like this to get the mean age for people by their nationality:
+
+```R
+data <- read.csv('path/to/csv')       # Read CSV
+data$age <- as.numeric(data$age)      # Convert age to numeric
+aggregate(data$age, list(nationality = data$nationality), mean)
+```
+
+But with Dplyr and Magrittr, we can do something like this:
+
+```R
+'path/to/csv' %>% read.csv %>%        # Read CSV
+  mutate(age = as.numeric(age)) %>%   # Convert age to numeric
+  group_by(nationality) %>% summarise(mean(age))
+```
+
+Much cleaner code!  Yay!  Read more from [RStudio](http://blog.rstudio.org/2014/01/17/introducing-dplyr/) and [RBloggers](www.r-bloggers.com/do-your-data-janitor-work-like-a-boss-with-dplyr/).
+
+
+## Surveytools2
+
+Surveytools2 adapts my previous Surveytools to work with Dplyr, bringing some survey-related functions that are missing from Dyplr's box of tools.
+
+#### add_prefix_to_table_names
+
+Adds a prefix to the names of a table.
+
+```R
+iris %>% add_prefix_to_table_names('iris_', except = 'Species') %>% names
+> [1] "iris_Sepal.Length" "iris_Sepal.Width"  "iris_Petal.Length" "iris_Petal.Width"  "Species"
+```
+
+#### breakdown
+
+Breakdown values of a variable by the number of people who have that value or a higher value.
+
+```R
+iris %>% breakdown('Sepal.Length', seq(10))
+>  [1] "150 respondants >=  1" "150 respondants >=  2" "150 respondants >=  3" "150 respondants >=  4" "118 respondants >=  5" "61 respondants >=  6"  "12 respondants >=  7"
+>  [8] "0 respondants >=  8"   "0 respondants >=  9"   "0 respondants >=  10"
+```
+
+#### comparison_table
+
+Surveytools was designed with the intention of making it easy to write tabular reports.  `comparison_table` compares a variable across a group, both visually and with an appropriate statistical test.
+
+```R
+iris %>% comparison_table('Sepal.Length', 'Species', type = 'continuous')
+
+> $table
+> Source: local data frame [3 x 3]
+
+>  Species  mean        sd
+>  1     setosa 5.006 0.3524897
+>  2 versicolor 5.936 0.5161711
+>  3  virginica 6.588 0.6358796
+
+>  $stat
+>   Call:
+>   lm(formula = .)
+
+>   Residuals:
+>     Min      1Q  Median      3Q     Max
+>     -1.6880 -0.3285 -0.0060  0.3120  1.3120
+
+>     Coefficients:
+>       Estimate Std. Error t value Pr(>|t|)
+>       (Intercept)   5.0060     0.0728  68.762  < 2e-16 ***
+>       yversicolor   0.9300     0.1030   9.033 8.77e-16 ***
+>       yvirginica    1.5820     0.1030  15.366  < 2e-16 ***
+>       ---
+>       Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+>       Residual standard error: 0.5148 on 147 degrees of freedom
+>       Multiple R-squared:  0.6187,    Adjusted R-squared:  0.6135
+>       F-statistic: 119.3 on 2 and 147 DF,  p-value: < 2.2e-16
+```
+
 
 ## Examples
 
