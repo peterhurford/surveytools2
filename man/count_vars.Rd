@@ -11,9 +11,11 @@ count_vars(df, vars, idname = "id", yes = 1, colname = "value")
 
 \item{vars}{character. A vector of variables to check.}
 
-\item{ids}{character. A vector of all respondent ids to return results for.}
+\item{idname}{character. The name of the variable in the dataframe where respondent ids are kept.  Defaults to 'id'.}
 
-\item{value}{character. The value to assign those ids.}
+\item{yes}{character. The value of the response counted as a "yes" response that you seek to tally.  Defaults to 1.}
+
+\item{colname}{character. The output will be a two-column dataframe with ids and values. The names are the idname for ids and this (default 'value') for the values.}
 }
 \description{
 Count the amount of "yes" responses that respondants have within a group of vars.
