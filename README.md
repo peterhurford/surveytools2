@@ -107,6 +107,52 @@ iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
 More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
 
 
+#### dplyr_table
+Makes a fancy table, using dplyr-like syntax, but inspired from `tab` from STATA.
+
+It works as a normal table, but with dplyr-like non-standard evaluation:
+
+```R
+data(iris)        # reset the iris variable
+iris %>% dplyr_table(Petal.Width, Species)
+>       setosa versicolor virginica
+>   0.1      5          0         0
+>   0.2     29          0         0
+>   0.3      7          0         0
+>   0.4      7          0         0
+>   0.5      1          0         0
+>   ...
+```
+
+It also does percentages:
+
+```R
+iris %>% dplyr_table(Petal.Width, Species, percent = TRUE, freq = FALSE)
+
+>     setosa versicolor virginica
+> 0.1 1.0000     0.0000    0.0000
+> 0.2 1.0000     0.0000    0.0000
+> 0.3 1.0000     0.0000    0.0000
+> 0.4 1.0000     0.0000    0.0000
+> 0.5 1.0000     0.0000    0.0000
+...
+```
+
+But, like `tab` from STATA, it can do both frequencies AND percentages:
+
+```R
+iris %>% dplyr_table(Petal.Width, Species, percent = TRUE)
+>      setosa      versicolor    virginica
+> 0.1 "5 (100%)"  "0 (0%)"      "0 (0%)"
+> 0.2 "29 (100%)" "0 (0%)"      "0 (0%)"
+> 0.3 "7 (100%)"  "0 (0%)"      "0 (0%)"
+> 0.4 "7 (100%)"  "0 (0%)"      "0 (0%)"
+> 0.5 "1 (100%)"  "0 (0%)"      "0 (0%)"
+...
+```
+
+And it has other options too, such as sorting and removing NAs.
+
 
 ## Examples
 
