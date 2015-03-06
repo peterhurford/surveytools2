@@ -93,6 +93,20 @@ iris %>% comparison_table('Sepal.Length', 'Species', type = 'continuous')
 ```
 
 
+#### count_vars
+For a given variable, counts the number of a particular response to that variable.
+
+This returns 1 if the iris has a Petal.Length or Petal.Width of 1.4 and 0 otherwise:
+
+```R
+iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f.  add_ids adds an id column to the dataframe. 
+iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
+```
+
+More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
+
+
+
 ## Examples
 
 * [The .impact survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)
