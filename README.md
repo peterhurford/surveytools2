@@ -154,6 +154,68 @@ iris %>% dplyr_table(Petal.Width, Species, percent = TRUE)
 And it has other options too, such as sorting and removing NAs.
 
 
+#### drop_na_cols
+
+Drops columns with an amount of NAs over a certain threshold.
+
+```R
+iris$Petal.Width <- NA   # Make Petal.Width NA
+iris %>% drop_na_cols %>% names
+> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Species"
+# Note that Petal.Width is dropped.
+```
+
+
+#### gather
+
+Gathers the vector of values within a table.  Particularly useful for working with postgres tables from dplyr.
+
+```R
+data(iris)  # Reset iris variable
+iris %>% gather(Petal.Width) %>% head
+> [1] 0.2 0.2 0.2 0.2 0.2 0.4 
+```
+
+
+#### get_names
+
+Gets the names from a dplyr postgres table.  Works the same as `names` on a regular table.
+
+```R
+iris %>% get_names
+> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+
+
+#### ignore_by_grep
+
+Drops all the columns of a database by regex strings.
+
+```R
+iris %>% ignore_by_grep('Petal') %>% names
+> [1] "Sepal.Length" "Sepal.Width"  "Species"
+```
+
+
+#### is.na_like
+
+Detects NAs, but also blanks (`""`), the string NA (`"NA"`), and the string `"N/A"`.  This removes most NA vars from surveys.
+
+```R
+is.na_like("")
+> [1] TRUE
+```
+
+
+#### na.rm
+
+Takes a vector and removes all NA-like values.
+
+```R
+c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
+> [1] "1" "2" "3" "4" "5" "6"
+
+#### i
+
 ## Examples
 
 * [The .impact survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)
