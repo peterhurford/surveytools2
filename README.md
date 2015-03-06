@@ -99,7 +99,8 @@ For a given variable, counts the number of a particular response to that variabl
 This returns 1 if the iris has a Petal.Length or Petal.Width of 1.4 and 0 otherwise:
 
 ```R
-iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f.  add_ids adds an id column to the dataframe. 
+iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f. 
+                   # add_ids adds an id column to the dataframe. 
 iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
 ```
 
