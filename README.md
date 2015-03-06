@@ -242,6 +242,66 @@ df %>% num_answers('q1')
 > [1] 6
 ```
 
+
+#### response_rate
+
+Calculates the response rate to a particular question.
+
+```R
+df <- data.frame(q1 = c(1, 2, NA, 3, 4, '', 5, 'N/A', 6))
+df %>% response_rate('q1')
+> [1] 0.6666667
+```
+
+
+#### swap_by_ids
+
+Changes the answer of a particular question by the id of the user.  Useful for imputation.
+
+```R
+iris %<>% add_ids  # Add ids to iris
+iris[iris$id == 42, ]
+> id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+> 42 42          4.5         2.3          1.3         0.3  setosa
+iris %<>% swap_by_ids('Petal.Length', list('42' = 'test'))
+iris[iris$id == 42, ]
+> id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+> 42 42          4.5         2.3          test         0.3  setosa
+```
+
+
+#### swap_by_value
+
+Swaps particular values with other values within the dataframe.  Useful for imputation.
+
+```R
+data(iris)   # Reset iris
+iris %>% gather(Species) %>% table
+>     setosa versicolor  virginica
+>        50         50         50
+iris %<>% swap_by_value('Species', list('setosa' = 'virginica'))
+iris %>% gather(Species) %>% table
+>     setosa versicolor  virginica
+>        0         50         100
+```
+
+
+#### swap_multiple_ids
+
+Assign the same value to multiple ids.  Useful for imputation.
+
+```R
+data(iris)          # Reset iris
+iris %<>% add_ids   # Add ids to iris
+> 42 42          4.5         2.3          1.3         0.3  setosa
+iris %<>% swap_multiple_ids('Petal.Length', c(42, 43), 'test')
+iris[iris$id %in% c(42, 43), ]
+>   id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+>   42 42          4.5         2.3         test         0.3  setosa
+>   43 43          4.4         3.2         test         0.2  setosa
+```R
+
+
 ## Examples
 
 * [The .impact survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)

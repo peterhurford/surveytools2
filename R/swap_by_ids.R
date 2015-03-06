@@ -7,7 +7,7 @@
 #'
 #' @param swap_list list. A list mapping ids to the desired value for that id.
 #' e.g., to replace the value for id #233 with "cat", use
-#' \code{list(233 = 'cat')}
+#' \code{list('233' = 'cat')}
 #'
 #' @export
 swap_by_ids <- function(df, variable, swap_list) {
