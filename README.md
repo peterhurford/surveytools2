@@ -236,7 +236,11 @@ iris %>% dplyr::filter(Species == 'setosa') %>% num_respondants
 
 Calculates the number of people who answered a particular question, removing na-like responses.
 
-df <- data.frame(q1 = c(1, 2, NA, 3, 4, '', 5, 'N/A', 6)) %>% as.data.frame %>% num_answers
+```R
+df <- data.frame(q1 = c(1, 2, NA, 3, 4, '', 5, 'N/A', 6))
+df %>% num_answers('q1')
+> [1] 6
+```
 
 ## Examples
 
