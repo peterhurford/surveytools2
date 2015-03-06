@@ -299,7 +299,7 @@ iris[iris$id %in% c(42, 43), ]
 >   id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 >   42 42          4.5         2.3         test         0.3  setosa
 >   43 43          4.4         3.2         test         0.2  setosa
-```R
+```
 
 
 ## Examples
