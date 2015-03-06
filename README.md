@@ -214,7 +214,29 @@ Takes a vector and removes all NA-like values.
 c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
 > [1] "1" "2" "3" "4" "5" "6"
 
-#### i
+
+#### num_respondants
+
+Calculates the number of respondants for a particular survey.
+
+```R
+iris %>% num_respondants
+> [1] 150
+```
+
+Also useful to see how many people remain after a particular filter.
+
+```R
+iris %>% dplyr::filter(Species == 'setosa') %>% num_respondants
+> [1] 50
+```
+
+
+#### num_answers
+
+Calculates the number of people who answered a particular question, removing na-like responses.
+
+df <- data.frame(q1 = c(1, 2, NA, 3, 4, '', 5, 'N/A', 6)) %>% as.data.frame %>% num_answers
 
 ## Examples
 

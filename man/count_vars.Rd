@@ -2,7 +2,7 @@
 % Please edit documentation in R/count_vars.R
 \name{count_vars}
 \alias{count_vars}
-\title{Count the amount of a particlar response that respondants have within a group of vars.}
+\title{Count the amount of a particlar response that respondants have across a group of vars.}
 \usage{
 count_vars(df, vars, response = 1, idname = "id", colname = "value")
 }
@@ -18,6 +18,6 @@ count_vars(df, vars, response = 1, idname = "id", colname = "value")
 \item{colname}{character. The output will be a two-column dataframe with ids and values. The names are the idname for ids and this (default 'value') for the values.}
 }
 \description{
-Count the amount of a particlar response that respondants have within a group of vars.
+Count the amount of a particlar response that respondants have across a group of vars.
 }
 
