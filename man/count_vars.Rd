@@ -4,7 +4,8 @@
 \alias{count_vars}
 \title{Count the amount of a particlar response that respondants have across a group of vars.}
 \usage{
-count_vars(df, vars, response = 1, idname = "id", colname = "value")
+count_vars(df, vars, response = 1, idname = "id", colname = "value",
+  vectorize = FALSE)
 }
 \arguments{
 \item{df}{dataframe.  The data to be transformed.}
@@ -16,6 +17,8 @@ count_vars(df, vars, response = 1, idname = "id", colname = "value")
 \item{idname}{character. The name of the variable in the dataframe where respondent ids are kept.  Defaults to 'id'.}
 
 \item{colname}{character. The output will be a two-column dataframe with ids and values. The names are the idname for ids and this (default 'value') for the values.}
+
+\item{vectorize}{logical. If false, the output will be a dataframe.  If true, the output will instead be just a vector of the values.}
 }
 \description{
 Count the amount of a particlar response that respondants have across a group of vars.
