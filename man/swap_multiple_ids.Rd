@@ -6,7 +6,7 @@
 Like swap_by_ids, but for multiple ids and one swap value.
 Useful for imputation.}
 \usage{
-swap_multiple_ids(df, variable, ids, value)
+swap_multiple_ids(df, variable, ids, value, idname = "id")
 }
 \arguments{
 \item{df}{dataframe.  The data to be transformed.}
@@ -16,6 +16,8 @@ swap_multiple_ids(df, variable, ids, value)
 \item{ids}{character. A vector of ids to be transformed.}
 
 \item{value}{character. The value to assign those ids.}
+
+\item{idname}{character. The name of the column with ids.}
 }
 \description{
 For all ids specified, sets their value to the assigned value within a given variable.

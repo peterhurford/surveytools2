@@ -5,7 +5,7 @@
 \title{Renames values within a dataframe based on ids.
 Useful for imputation.}
 \usage{
-swap_by_ids(df, variable, swap_list)
+swap_by_ids(df, variable, swap_list, idname = "id")
 }
 \arguments{
 \item{df}{data frame.  The data to be transformed.}
@@ -14,7 +14,9 @@ swap_by_ids(df, variable, swap_list)
 
 \item{swap_list}{list. A list mapping ids to the desired value for that id.
 e.g., to replace the value for id #233 with "cat", use
-\code{list(233 = 'cat')}}
+\code{list('233' = 'cat')}}
+
+\item{idname}{character. The name of the column with ids.}
 }
 \description{
 Renames values within a dataframe based on ids.

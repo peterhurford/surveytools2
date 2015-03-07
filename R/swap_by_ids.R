@@ -9,10 +9,12 @@
 #' e.g., to replace the value for id #233 with "cat", use
 #' \code{list('233' = 'cat')}
 #'
+#' @param idname character. The name of the column with ids.
+#'
 #' @export
-swap_by_ids <- function(df, variable, swap_list) {
+swap_by_ids <- function(df, variable, swap_list, idname = 'id') {
   sapply(names(swap_list), function(id) {
-    df[df$id == id, variable] <<- swap_list[[id]]
+    df[df[[idname]] == id, variable] <<- swap_list[[id]]
   })
   df
 }
