@@ -7,7 +7,7 @@ This package is not yet available from CRAN. To install the latest development b
 
 ```R
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github('peterhurford', 'surveytools')
+devtools::install_github('peterhurford', 'surveytools')i
 ```
 
 ## Dplyr
@@ -184,6 +184,7 @@ Gets the names from a dplyr postgres table.  Works the same as `names` on a regu
 ```R
 iris %>% get_names
 > [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
 
 
 #### ignore_by_grep
