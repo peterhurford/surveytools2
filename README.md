@@ -7,7 +7,7 @@ This package is not yet available from CRAN. To install the latest development b
 
 ```R
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github('peterhurford', 'surveytools')i
+devtools::install_github('peterhurford', 'surveytools')
 ```
 
 ## Dplyr
@@ -214,6 +214,7 @@ Takes a vector and removes all NA-like values.
 ```R
 c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
 > [1] "1" "2" "3" "4" "5" "6"
+```
 
 
 #### num_respondants
