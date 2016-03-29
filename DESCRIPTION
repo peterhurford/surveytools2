@@ -17,3 +17,5 @@ Suggests:
     testthatsomemore,
     knitr,
     microbenchmark
+Remotes: peterhurford/checkr
+RoxygenNote: 5.0.1.9000
