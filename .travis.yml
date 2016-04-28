@@ -1,0 +1,46 @@
+language: c
+sudo: false
+git:
+  submodules: false
+addons:
+  apt:
+    sources:
+      - r-packages-precise
+    packages:
+      - r-base-dev
+      - r-recommended
+      - pandoc
+env:
+  - global:
+    - WARNINGS_ARE_ERRORS=1
+    - _R_CHECK_FORCE_SUGGESTS_=0
+    - LINTR_COMMENT_BOT=false
+    - R_LIBS_USER=~/.R/library
+cache:
+  directories:
+    $R_LIBS_USER
+before_script:
+  - mkdir -p "$R_LIBS_USER"
+  - Rscript -e 'if (!require("devtools")) install.packages("devtools", repos = "http://cran.rstudio.com/")'
+  - Rscript -e 'if (!require("roxygen2")) devtools::install_github("klutometis/roxygen@v5.0.1")'
+  - Rscript -e 'if (!require("rcmdcheck")) devtools::install_github("MangoTheCat/rcmdcheck")'
+  - Rscript -e 'if (!require("lintr")) devtools::install_github("jimhester/lintr")'
+  - Rscript -e 'if (!require("covr")) devtools::install_github("jimhester/covr")'
+  - Rscript -e 'if (!require("checkr") || packageVersion("checkr") < package_version("0.0.4.9007")) { devtools::install_github("peterhurford/checkr") }'
+  - Rscript -e 'devtools::install_deps(repos = "http://cran.rstudio.com", dependencies = TRUE)'
+script:
+  - Rscript -e 'devtools::install("."); r <- rcmdcheck::rcmdcheck(".", args = c("--no-manual")); l <- lintr::lint_package("."); print(l); quit(save = "no", status = if (length(c(r$errors, r$warnings, l)) > 1 || grepl("FAILED", r$output$stdout) || !checkr::package_exports_checked(".")) { 1 } else { 0 }, runLast = FALSE)'
+after_success:
+  - Rscript -e 'library(covr);codecov()'
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+  hipchat:
+    on_success: change
+    on_failure: change
+    template:
+    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
+      | Details: %{build_url} | Changes: %{compare_url}"
+    rooms:
+      secure: SQirvWbQ9b0roApmf3gt6JTcWIra9NguGzR45azxVDaWw2n0w/sIufA/cxa2sTLLhKfIMNlJwwhQjNaWyHeZkTTxRb76tcHWQdPpMcNKTwfr3+C3/bXDkmQozvQkYNgGuRc2Iln5ms12fiHmwI6dp5aENACUo5fbV2SLJQvmt5w=
