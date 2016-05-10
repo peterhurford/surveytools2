@@ -5,9 +5,9 @@
 #' @import checkr
 #' @export
 add_ids <- checkr::ensure(
-  pre = list(df %is% dataframe, idname %is% simple_string),
+  pre = list(df %is% dataframe, NCOL(df) > 0, idname %is% simple_string),
   post = list(result %is% dataframe, NCOL(result) == NCOL(df) + 1),
-    function(df, idname = 'id') {
+    function(df, idname = "id") {
       df <- cbind(seq(NROW(df)), df)
       names(df)[[1]] <- idname
       df
