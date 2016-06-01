@@ -4,6 +4,7 @@
 #' @param variable. If character, the name of the variable to test.  Or you can pass a specific vector instead.
 #' @param groupby character. If character, the name of the variable to group `variable` by.  Or you can pass a specific vector instead.
 #' @param type character. "Continuous" if `variable` is continuous data (like age), or "categorical" if `variable` is categorical data (like hometown).
+#' @aliases ctable
 #' @export
 comparison_table <- function(data = NULL, variable, groupby, type) {
   if (type != "continuous" && type != "categorical") stop('Type not recognized.')
@@ -22,3 +23,6 @@ comparison_table <- function(data = NULL, variable, groupby, type) {
     )
   )
 }
+
+#' @export
+ctable <- comparison_table
