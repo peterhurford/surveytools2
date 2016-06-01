@@ -2,6 +2,7 @@
 % Please edit documentation in R/comparison_table.R
 \name{comparison_table}
 \alias{comparison_table}
+\alias{ctab}
 \alias{ctable}
 \title{Compares a variable across a group, both visually and with an appropriate statistical test.}
 \usage{

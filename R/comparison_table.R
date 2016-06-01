@@ -5,11 +5,11 @@
 #' @param groupby character. If character, the name of the variable to group `variable` by.
 #' @param type character. "Continuous" if `variable` is continuous data (like age), or "categorical" / "discrete" if `variable` is categorical data (like hometown).
 #'   This can be automatically inferred by whether the variable is numeric or not.
-#' @aliases ctable
+#' @aliases ctable ctab
 #' @export
 comparison_table <- function(data, variable, groupby, type = NULL) {
   variable <- deparse(substitute(variable))
-  groupby <- deparse(substitute(groupby))
+  groupby  <- deparse(substitute(groupby))
   comparison_table_(data, variable, groupby, type)
 }
 
@@ -53,8 +53,16 @@ table_for_continuous <- function(data, variable, groupby) {
     dplyr::summarise_each(dplyr::funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE)))
 }
 table_for_categorical <- function(data, variable, groupby) {
-  data %>% dplyr_table_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE)
+  data %>% tab_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE)
 }
 
 #' @export
 ctable <- comparison_table
+ctab <- comparison_table
+
+#' Print the table without annoyingly displaying the class.
+#' @export
+print.comparison_table <- function(x) {
+  class(x) <- NULL
+  print(x)
+}
