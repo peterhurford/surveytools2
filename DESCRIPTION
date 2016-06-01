@@ -10,11 +10,7 @@ Depends:
 License: MIT <http://opensource.org/licenses/MIT>
 LazyData: true
 Imports:
-    dplyr,
-    purrr
+    dplyr
 Suggests:
-    testthat,
-    testthatsomemore,
-    knitr,
-    microbenchmark
+    testthat
 RoxygenNote: 5.0.1.9000
