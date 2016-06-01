@@ -10,7 +10,10 @@ Depends:
 License: MIT <http://opensource.org/licenses/MIT>
 LazyData: true
 Imports:
-    dplyr
+    dplyr,
+    checkr
 Suggests:
     testthat
+Remotes:
+    peterhurford/checkr
 RoxygenNote: 5.0.1.9000
