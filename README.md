@@ -61,7 +61,7 @@ iris %>% breakdown('Sepal.Length', seq(10))
 Surveytools was designed with the intention of making it easy to write tabular reports.  `comparison_table` compares a variable across a group, both visually and with an appropriate statistical test.
 
 ```R
-iris %>% comparison_table('Sepal.Length', 'Species', type = 'continuous')
+iris %>% comparison_table(Sepal.Length, Species)
 
 > $table
 > Source: local data frame [3 x 3]
@@ -107,48 +107,64 @@ iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
 More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
 
 
-#### dplyr_table
-Makes a fancy table, using dplyr-like syntax, but inspired from `tab` from STATA.
-
-It works as a normal table, but with dplyr-like non-standard evaluation:
+#### tab
+Makes a fancy table, inspired from `tab` from STATA.
 
 ```R
 data(iris)        # reset the iris variable
-iris %>% dplyr_table(Petal.Width, Species)
->       setosa versicolor virginica
->   0.1      5          0         0
->   0.2     29          0         0
->   0.3      7          0         0
->   0.4      7          0         0
->   0.5      1          0         0
->   ...
+> iris %>% tab(Species, Petal.Width)
+> iris %>% tab(Species, Petal.Width)
+Species ### Petal.Width
+
+             0.1 0.2 0.3 0.4 0.5 0.6  1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9  2
+  setosa       5  29   7   7   1   1  0   0   0   0   0   0   0   0   0   0  0
+  versicolor   0   0   0   0   0   0  7   3   5  13   7  10   3   1   1   0  0
+  virginica    0   0   0   0   0   0  0   0   0   0   1   2   1   1  11   5  6
+
+             2.1 2.2 2.3 2.4 2.5
+  setosa       0   0   0   0   0
+  versicolor   0   0   0   0   0
+  virginica    6   3   8   3   3
 ```
 
 It also does percentages:
 
 ```R
-iris %>% dplyr_table(Petal.Width, Species, percent = TRUE, freq = FALSE)
+> iris %>% tab(Species, Petal.Width, percent = TRUE, freq = FALSE)
+Species ### Petal.Width
 
->     setosa versicolor virginica
-> 0.1 1.0000     0.0000    0.0000
-> 0.2 1.0000     0.0000    0.0000
-> 0.3 1.0000     0.0000    0.0000
-> 0.4 1.0000     0.0000    0.0000
-> 0.5 1.0000     0.0000    0.0000
-...
+              0.1  0.2  0.3  0.4  0.5  0.6    1  1.1  1.2  1.3  1.4  1.5  1.6
+  setosa     0.10 0.58 0.14 0.14 0.02 0.02 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+  versicolor 0.00 0.00 0.00 0.00 0.00 0.00 0.14 0.06 0.10 0.26 0.14 0.20 0.06
+  virginica  0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.02 0.04 0.02
+
+              1.7  1.8  1.9    2  2.1  2.2  2.3  2.4  2.5
+  setosa     0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+  versicolor 0.02 0.02 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+  virginica  0.02 0.22 0.10 0.12 0.12 0.06 0.16 0.06 0.06
 ```
 
 But, like `tab` from STATA, it can do both frequencies AND percentages:
 
 ```R
 iris %>% dplyr_table(Petal.Width, Species, percent = TRUE)
->      setosa      versicolor    virginica
-> 0.1 "5 (100%)"  "0 (0%)"      "0 (0%)"
-> 0.2 "29 (100%)" "0 (0%)"      "0 (0%)"
-> 0.3 "7 (100%)"  "0 (0%)"      "0 (0%)"
-> 0.4 "7 (100%)"  "0 (0%)"      "0 (0%)"
-> 0.5 "1 (100%)"  "0 (0%)"      "0 (0%)"
-...
+> iris %>% tab(Species, Petal.Width, percent = TRUE)
+Species ### Petal.Width
+
+             0.1     0.2      0.3     0.4     0.5    0.6    1       1.1
+  setosa     5 (10%) 29 (58%) 7 (14%) 7 (14%) 1 (2%) 1 (2%) 0 (0%)  0 (0%)
+  versicolor 0 (0%)  0 (0%)   0 (0%)  0 (0%)  0 (0%) 0 (0%) 7 (14%) 3 (6%)
+  virginica  0 (0%)  0 (0%)   0 (0%)  0 (0%)  0 (0%) 0 (0%) 0 (0%)  0 (0%)
+
+             1.2     1.3      1.4     1.5      1.6    1.7    1.8      1.9
+  setosa     0 (0%)  0 (0%)   0 (0%)  0 (0%)   0 (0%) 0 (0%) 0 (0%)   0 (0%)
+  versicolor 5 (10%) 13 (26%) 7 (14%) 10 (20%) 3 (6%) 1 (2%) 1 (2%)   0 (0%)
+  virginica  0 (0%)  0 (0%)   1 (2%)  2 (4%)   1 (2%) 1 (2%) 11 (22%) 5 (10%)
+
+             2       2.1     2.2    2.3     2.4    2.5
+  setosa     0 (0%)  0 (0%)  0 (0%) 0 (0%)  0 (0%) 0 (0%)
+  versicolor 0 (0%)  0 (0%)  0 (0%) 0 (0%)  0 (0%) 0 (0%)
+  virginica  6 (12%) 6 (12%) 3 (6%) 8 (16%) 3 (6%) 3 (6%)
 ```
 
 And it has other options too, such as sorting and removing NAs.
