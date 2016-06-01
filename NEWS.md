@@ -1,3 +1,7 @@
+#### v0.2.1
+
+* Export `ctab` (`comparison_table` alias).
+
 ## v0.2
 
 * `dplyr_table` has been renamed `tab` and prints more cleanly.

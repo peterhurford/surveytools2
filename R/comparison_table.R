@@ -70,6 +70,8 @@ table_for_categorical <- function(data, variable, groupby) {
 
 #' @export
 ctable <- comparison_table
+
+#' @export
 ctab   <- comparison_table
 
 #' Print the table without annoyingly displaying the class.
