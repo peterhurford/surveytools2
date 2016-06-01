@@ -16,9 +16,9 @@ tab <- function(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, sort = T
 tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE) {
   if (!isTRUE(freq) & !isTRUE(percent)) stop("No frequency and no percent makes for a blank table.")
   t <- do.call(table, lapply(.dots, function(d) {
-    dd <- if (identical(class(d), "lazy")) .data[[as.character(d$expr)]]
-    else if (is.character(d)) .data[[d]]
-    else stop("Class not recognized")
+    dd <- if (d %is% lazy) { lazyeval::lazy_eval(d, data = .data) }
+          else if (is.character(d)) {  .data[[d]] }
+          else { stop("Class not recognized") }
     if (isTRUE(na.rm)) dd <- na.rm(dd)
     dd
   }))
@@ -56,15 +56,10 @@ tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort 
   t
 }
 
-get_varname <- function(dot) {
-  if (identical(class(dot), "lazy")) { as.character(dot$expr) }
-  else { dot }
-}
-
 #' @export
 print.tab <- function(x) {
   cat(attr(x, "left_var"));
-  if (!is.null(attr(x, "upper_var"))) { cat(" ### "); cat(attr(x, "upper_var")); }
+  if (!is.null(attr(x, "upper_var"))) { cat(" ### "); cat(attr(x, "upper_var")) }
   cat("\n")
   print.table(x)
 }

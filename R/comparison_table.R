@@ -8,19 +8,25 @@
 #' @aliases ctable ctab
 #' @export
 comparison_table <- function(data, variable, groupby, type = NULL) {
-  variable <- deparse(substitute(variable))
-  groupby  <- deparse(substitute(groupby))
+  variable <- lazyeval::as.lazy(substitute(variable))
+  groupby  <- lazyeval::as.lazy(substitute(groupby))
   comparison_table_(data, variable, groupby, type)
 }
 
 #' @import checkr magrittr
 comparison_table_ <- checkr::ensure(
   pre = list(data %is% dataframe,
-    variable %is% simple_string, groupby %is% simple_string,
+    variable %is% simple_string || variable %is% lazy,
+    groupby %is% simple_string || groupby %is% lazy,
     type %is% NULL || type %in% c("continuous", "discrete", "categorical")),
   function(data, variable, groupby, type = NULL) {
-    x <- data[[variable]]
-    y <- data[[groupby]]
+    if (variable %is% lazy) {
+      x <- lazyeval::lazy_eval(variable, data = data)
+      y <- lazyeval::lazy_eval(groupby, data = data)
+    } else {
+      x <- data[[variable]]
+      y <- data[[groupby]]
+    }
     if (length(x) != length(y)) stop('Lengths of x and y differ.')
 
     if (is.null(type)) {
@@ -49,8 +55,14 @@ table_for <- function(data, variable, groupby, type) {
   else { table_for_categorical(data, variable, groupby) }
 }
 table_for_continuous <- function(data, variable, groupby) {
-  data %>% dplyr::group_by_(groupby) %>% dplyr::select_(variable) %>%
-    dplyr::summarise_each(dplyr::funs(mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
+  t <- data %>% dplyr::mutate_(.dots = list(group = groupby)) %>%
+    dplyr::group_by(group) %>%
+    dplyr::select_(variable) %>%
+    dplyr::summarise_each(dplyr::funs(
+      mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
+  attr(t, "left_var") <- get_varname(variable)
+  attr(t, "upper_var") <- get_varname(groupby)
+  t
 }
 table_for_categorical <- function(data, variable, groupby) {
   data %>% tab_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE)
@@ -58,14 +70,22 @@ table_for_categorical <- function(data, variable, groupby) {
 
 #' @export
 ctable <- comparison_table
-ctab <- comparison_table
+ctab   <- comparison_table
 
 #' Print the table without annoyingly displaying the class.
 #' @export
 print.comparison_table <- function(x) {
-  class(x) <- NULL
-  # Hack to not print the source on the tibble::data_frame
-  print(tibble::trunc_mat(x$table, n = NULL, width = NULL))
+  if (x$table %is% tbl_df) {
+    cat(attr(x$table, "left_var"));
+    if (!is.null(attr(x$table, "upper_var"))) {
+      cat(" ### "); cat(attr(x$table, "upper_var"))
+    }
+    cat("\n")
+    # Hack to not print the source on the tibble::data_frame
+    print(tibble::trunc_mat(x$table, n = NULL, width = NULL))
+  } else {
+    print(x$table)
+  }
   cat("\n")
   print(x$stat)
 }
