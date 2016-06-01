@@ -50,7 +50,7 @@ table_for <- function(data, variable, groupby, type) {
 }
 table_for_continuous <- function(data, variable, groupby) {
   data %>% dplyr::group_by_(groupby) %>% dplyr::select_(variable) %>%
-    dplyr::summarise_each(dplyr::funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE)))
+    dplyr::summarise_each(dplyr::funs(mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
 }
 table_for_categorical <- function(data, variable, groupby) {
   data %>% tab_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE)
@@ -64,5 +64,8 @@ ctab <- comparison_table
 #' @export
 print.comparison_table <- function(x) {
   class(x) <- NULL
-  print(x)
+  # Hack to not print the source on the tibble::data_frame
+  print(tibble::trunc_mat(x$table, n = NULL, width = NULL))
+  cat("\n")
+  print(x$stat)
 }
