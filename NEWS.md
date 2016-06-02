@@ -1,4 +1,4 @@
-## v0.3
+## v0.3.0-1
 
 * Add `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
 
