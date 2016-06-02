@@ -2,7 +2,7 @@
 % Please edit documentation in R/count_vars.R
 \name{count_vars}
 \alias{count_vars}
-\title{Count the amount of a particlar response that respondants have across a group of vars.}
+\title{Count the amount of a particlar response that respondents have across a group of vars.}
 \usage{
 count_vars(df, vars, response = 1, idname = "id", colname = "value",
   vectorize = FALSE)
@@ -21,6 +21,6 @@ count_vars(df, vars, response = 1, idname = "id", colname = "value",
 \item{vectorize}{logical. If false, the output will be a dataframe.  If true, the output will instead be just a vector of the values.}
 }
 \description{
-Count the amount of a particlar response that respondants have across a group of vars.
+Count the amount of a particlar response that respondents have across a group of vars.
 }
 

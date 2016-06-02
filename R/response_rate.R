@@ -12,7 +12,7 @@ num_respondents <- function(df) df %>% NROW
 #' @param variable character. The variable to count.
 #' @param na. NA responses in the dataframe are coded as this.
 #' @export
-num_answers <- function(df, variable, na = NA) df %>% gather_(variable) %>% na.rm %>% num_respondants
+num_answers <- function(df, variable, na = NA) df %>% gather_(variable) %>% na.rm %>% num_respondents
 
 #' Calculates the response rate to a particular question.
 #' Assumes each column corresponds to a unique respondent.
@@ -21,4 +21,4 @@ num_answers <- function(df, variable, na = NA) df %>% gather_(variable) %>% na.r
 #' @param variable character. The variable to count.
 #' @param na. NA responses in the dataframe are coded as this.
 #' @export
-response_rate <- function(df, variable, na = NA) num_answers(df, variable, na) / num_respondants(df)
+response_rate <- function(df, variable, na = NA) num_answers(df, variable, na) / num_respondents(df)

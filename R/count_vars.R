@@ -1,4 +1,4 @@
-#' Count the amount of a particlar response that respondants have across a group of vars.
+#' Count the amount of a particlar response that respondents have across a group of vars.
 #'
 #' @param df dataframe.  The data to be transformed.
 #' @param vars character. A vector of variables to check.
