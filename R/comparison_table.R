@@ -73,6 +73,7 @@ table_for_continuous <- function(data, variable, groupby) {
       mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
   attr(t, "left_var") <- get_varname(variable)
   attr(t, "upper_var") <- get_varname(groupby)
+  attr(t, "na.rm") <- TRUE
   t
 }
 table_for_categorical <- function(data, variable, groupby, na.rm = FALSE) {
@@ -93,6 +94,7 @@ print.comparison_table <- function(x) {
     if (!is.null(attr(x$table, "upper_var"))) {
       cat(" ### "); cat(attr(x$table, "upper_var"))
     }
+    if (isTRUE(attr(x, "na.rm"))) { cat(" (nas removed)") }
     cat("\n")
     # Hack to not print the source on the tibble::data_frame
     print(tibble::trunc_mat(x$table, n = NULL, width = NULL))
