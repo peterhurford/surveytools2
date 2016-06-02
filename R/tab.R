@@ -56,6 +56,7 @@ tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort 
   class(t) <- c("tab", class(t))
   attr(t, "left_var") <- get_varname(.dots[[1]])  # Store the variable names for printing
   if (length(.dots) > 1) { attr(t, "upper_var") <- get_varname(.dots[[2]]) }
+  attr(t, "na.rm") <- na.rm
   t
 }
 
@@ -63,6 +64,7 @@ tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort 
 print.tab <- function(x) {
   cat(attr(x, "left_var"));
   if (!is.null(attr(x, "upper_var"))) { cat(" ### "); cat(attr(x, "upper_var")) }
+  if (isTRUE(attr(x, "na.rm"))) { cat(" (nas removed)") }
   cat("\n")
   print.table(x)
 }

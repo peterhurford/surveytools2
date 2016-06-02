@@ -1,3 +1,7 @@
+#### v0.3.2
+
+* It is announced in the table if NAs were removed.
+
 ## v0.3.0-1
 
 * Add `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
