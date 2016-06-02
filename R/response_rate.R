@@ -3,7 +3,7 @@
 #'
 #' @param df data frame. The dataframe to count.
 #' @export
-num_respondants <- function(df) df %>% NROW
+num_respondents <- function(df) df %>% NROW
 
 #' Calculates the number of people that answered a particular question.
 #' Assumes each column corresponds to a unique respondent.

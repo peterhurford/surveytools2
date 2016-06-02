@@ -1,3 +1,7 @@
+#### v0.2.2
+
+* `num_respondants` was renamed `num_respondents` (the correct spelling).
+
 #### v0.2.1
 
 * Export `ctab` (`comparison_table` alias).
