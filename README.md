@@ -52,8 +52,8 @@ Breakdown values of a variable by the number of people who have that value or a 
 
 ```R
 iris %>% breakdown('Sepal.Length', seq(10))
->  [1] "150 respondants >=  1" "150 respondants >=  2" "150 respondants >=  3" "150 respondants >=  4" "118 respondants >=  5" "61 respondants >=  6"  "12 respondants >=  7"
->  [8] "0 respondants >=  8"   "0 respondants >=  9"   "0 respondants >=  10"
+>  [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3" "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"  "12 respondents >=  7"
+>  [8] "0 respondents >=  8"   "0 respondents >=  9"   "0 respondents >=  10"
 ```
 
 #### comparison_table
@@ -233,19 +233,19 @@ c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
 ```
 
 
-#### num_respondants
+#### num_respondents
 
-Calculates the number of respondants for a particular survey.
+Calculates the number of respondents for a particular survey.
 
 ```R
-iris %>% num_respondants
+iris %>% num_respondents
 > [1] 150
 ```
 
 Also useful to see how many people remain after a particular filter.
 
 ```R
-iris %>% dplyr::filter(Species == 'setosa') %>% num_respondants
+iris %>% dplyr::filter(Species == 'setosa') %>% num_respondents
 > [1] 50
 ```
 
