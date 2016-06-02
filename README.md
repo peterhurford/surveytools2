@@ -320,6 +320,13 @@ iris[iris$id %in% c(42, 43), ]
 ```
 
 
+#### var_summary and summarize_csv
+
+Use `var_summary(variable_name)` to quickly summarize `variable_name`, getting information on its class, size, summary statistics (mean, median, min, max, and standard deviation) if it is numeric, and what it looks like (table, head, tail).
+
+To summarize a bunch of variables at once, make a list of those variables (in this example, called `data`) and then use `summary_csv(data, filename)` (with `filename` being the name of the file you want to write to).  This will write a CSV file you can open that has `var_summary` information for each variable.
+
+
 ## Examples
 
 * [The .impact survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)

@@ -1,3 +1,8 @@
+## v0.3
+
+* Add `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
+
+
 #### v0.2.4
 
 * `tab` and `ctab` now take a (functional) `na.rm` parameter.
