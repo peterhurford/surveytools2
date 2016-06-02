@@ -1,4 +1,4 @@
-#### v0.2.2
+#### v0.2.2-3
 
 * `num_respondants` was renamed `num_respondents` (the correct spelling).
 
