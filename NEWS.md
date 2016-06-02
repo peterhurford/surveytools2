@@ -1,3 +1,7 @@
+#### v0.2.4
+
+* `tab` and `ctab` now take a (functional) `na.rm` parameter.
+
 #### v0.2.2-3
 
 * `num_respondants` was renamed `num_respondents` (the correct spelling).

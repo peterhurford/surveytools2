@@ -15,13 +15,16 @@ tab <- function(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, sort = T
 #' @export
 tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE) {
   if (!isTRUE(freq) & !isTRUE(percent)) stop("No frequency and no percent makes for a blank table.")
-  t <- do.call(table, lapply(.dots, function(d) {
-    dd <- if (d %is% lazy) { lazyeval::lazy_eval(d, data = .data) }
-          else if (is.character(d)) {  .data[[d]] }
-          else { stop("Class not recognized") }
-    if (isTRUE(na.rm)) dd <- na.rm(dd)
-    dd
-  }))
+  l <- lapply(.dots, function(d) {
+    if (d %is% lazy) { lazyeval::lazy_eval(d, data = .data) }
+    else if (is.character(d)) {  .data[[d]] }
+    else { stop("Class not recognized") }
+  })
+  if (isTRUE(na.rm)) {
+    nas <- Reduce(`&`, lapply(l, Negate(is.na_like)))
+    l <- lapply(l, `[`, nas)
+  }
+  t <- do.call(table, l)
   t <- if (isTRUE(percent)) {
     if (length(dim(t)) == 1) byrow <- NULL
     if (!is.null(byrow)) { byrow <- if (isTRUE(byrow)) 1 else 2 }
