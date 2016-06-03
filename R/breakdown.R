@@ -9,6 +9,10 @@
 #' age 15 or older, etc. to age 90.
 #' @export
 breakdown <- function(df, variable, breakdowns) {
+  breakdown_(df, deparse(substitute(variable)), breakdowns)
+}
+
+breakdown_ <- function(df, variable, breakdowns) {
   sapply(breakdowns, function(x) {
     y <- as.numeric(df[[variable]])
     paste(length(y[y > x]), 'respondents >= ', x)
