@@ -1,3 +1,7 @@
+#### v0.3.4
+
+* Make `breakdown` and `num_answers` use NSE by default (and provide `breakdown_` and `num_answers_` for non-NSE).
+
 #### v0.3.3
 
 * Add magrittr package to imports.
