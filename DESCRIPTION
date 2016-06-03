@@ -11,6 +11,7 @@ License: MIT <http://opensource.org/licenses/MIT>
 LazyData: true
 Imports:
     dplyr,
+    magrittr,
     lazyeval,
     checkr
 Suggests:
