@@ -1,3 +1,7 @@
+#### v0.3.3
+
+* Add magrittr package to imports.
+
 #### v0.3.2
 
 * It is announced in the table if NAs were removed.
