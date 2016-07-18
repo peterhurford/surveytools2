@@ -1,4 +1,5 @@
-## Surveytools2
+## Surveytools2 <a href="https://travis-ci.org/peterhurford/surveytools2"><img src="https://img.shields.io/travis/peterhurford/surveytools2.svg"></a> <a href="https://codecov.io/github/peterhurford/surveytools2"><img src="https://img.shields.io/codecov/c/github/peterhurford/surveytools2.svg"></a> <a href="https://github.com/peterhurford/surveytools2/tags"><img src="https://img.shields.io/github/tag/peterhurford/surveytools2.svg"></a>
+
 Surveytools2 is a collection of R functions that make working with dplyr on survey analysis just a little bit better.  Inspired by Hadley's [dplyr](http://www.github.com/hadley/dplyr) package and my previous [surveytools](http://www.github.com/peterhurford/surveytools) package.  Surveytools2 works to extend dplyr's functionality to include more methods useful for survey analysis.
 
 ## Installation
