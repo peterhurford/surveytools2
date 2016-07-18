@@ -17,7 +17,7 @@ ignore_by_grep <- function(df, ..., keep = NULL) {
 
 map_greps <- function(x, names, whole = FALSE) {
   if (isTRUE(whole)) names <- lapply(names, function(x) paste0('\\b', x, '\\b'))
-  purrr:::map(unlist(names), ~ !grepl(., x))
+  lapply(unlist(names), function(x) !grepl(., x))
 }
 
 get_cols_by_greps <- function(df, names, whole = FALSE)

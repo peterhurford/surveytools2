@@ -2,18 +2,23 @@
 % Please edit documentation in R/comparison_table.R
 \name{comparison_table}
 \alias{comparison_table}
+\alias{ctab}
+\alias{ctable}
 \title{Compares a variable across a group, both visually and with an appropriate statistical test.}
 \usage{
-comparison_table(data = NULL, variable, groupby, type)
+comparison_table(data, variable, groupby, type = NULL, na.rm = FALSE)
 }
 \arguments{
 \item{data}{data frame. The data to test.}
 
-\item{groupby}{character. If character, the name of the variable to group `variable` by.  Or you can pass a specific vector instead.}
+\item{groupby}{character. If character, the name of the variable to group `variable` by.}
 
-\item{type}{character. "Continuous" if `variable` is continuous data (like age), or "categorical" if `variable` is categorical data (like hometown).}
+\item{type}{character. "Continuous" if `variable` is continuous data (like age), or "categorical" / "discrete" if `variable` is categorical data (like hometown).
+This can be automatically inferred by whether the variable is numeric or not.}
 
-\item{variable.}{If character, the name of the variable to test.  Or you can pass a specific vector instead.}
+\item{na.rm}{logical. Whether or not to remove NAs from the variables being considered.}
+
+\item{variable.}{If character, the name of the variable to test.}
 }
 \description{
 Compares a variable across a group, both visually and with an appropriate statistical test.
