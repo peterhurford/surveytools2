@@ -1,3 +1,8 @@
+#### v0.3.7
+
+* `replace` now takes column name via NSE.
+* Bugfix for `replace`.
+
 #### v0.3.6
 
 * Add `replace` to swap values within a dataframe.
