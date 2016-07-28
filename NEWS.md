@@ -1,3 +1,7 @@
+#### v0.3.8
+
+* Another bugfix for `replace`.
+
 #### v0.3.7
 
 * `replace` now takes column name via NSE.
