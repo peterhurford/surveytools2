@@ -6,7 +6,7 @@
 #' @export
 replace <- function(df, col, expr, value) {
   expr <- substitute(expr)
-  col <- deparse(substitute(col))
+  col <- deparse(substitute(col))  #TODO: only substitute if not already a string. Also check that column exists.
   df[with(df, eval(expr)), col] <- value
   df
 }
