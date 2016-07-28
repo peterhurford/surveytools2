@@ -2,7 +2,7 @@ Package: surveytools2
 Title: Surveytools2 is a collection of R functions that make working with
     dplyr on survey analysis just a little bit better.  Inspired by dplyr
     and my previous surveytools package.
-Version: 0.3.5
+Version: 0.3.6
 Authors@R: "Peter Hurford <peter@peterhuford.com> [aut, cre]"
 Description: See title.
 Depends:
@@ -17,6 +17,5 @@ Imports:
     tibble
 Suggests:
     testthat
-Remotes:
-    peterhurford/checkr
-RoxygenNote: 5.0.1.9000
+Remotes: peterhurford/checkr
+RoxygenNote: 5.0.1

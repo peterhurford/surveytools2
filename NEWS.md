@@ -1,3 +1,7 @@
+#### v0.3.6
+
+* Add `replace` to swap values within a dataframe.
+
 #### v0.3.5
 
 * Add tibble dependency.
