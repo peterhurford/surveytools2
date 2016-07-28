@@ -5,7 +5,7 @@
 #' @param value object. The value positions where the expression is true become.
 #' @export
 replace <- function(df, col, expr, value) {
-  expr <- substitue(expr)
+  expr <- substitute(expr)
   col <- deparse(substitute(col))
   df[with(df, eval(expr)), col] <- value
   df

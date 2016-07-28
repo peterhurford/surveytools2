@@ -1,4 +1,4 @@
-#### v0.3.8
+#### v0.3.8-8
 
 * Another bugfix for `replace`.
 
