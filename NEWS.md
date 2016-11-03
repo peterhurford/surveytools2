@@ -1,8 +1,8 @@
-#### v0.3.8-8
+#### v0.3.10
 
-* Another bugfix for `replace`.
+* Bugfix for `swap_by_value` when the dataframe has NAs.
 
-#### v0.3.7
+#### v0.3.7-9
 
 * `replace` now takes column name via NSE.
 * Bugfix for `replace`.
