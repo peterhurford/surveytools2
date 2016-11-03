@@ -12,7 +12,7 @@
 #' @export
 swap_by_value <- function(df, variable, swap_list) {
   sapply(names(swap_list), function(x) {
-    df[df[[variable]] == x, variable] <<- swap_list[[x]]
+    df[df[[variable]] == x & !is.na(df[[variable]]), variable] <<- swap_list[[x]]
   })
   df
 }
