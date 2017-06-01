@@ -37,26 +37,8 @@ Much cleaner code!  Yay!  Read more from [RStudio](http://blog.rstudio.org/2014/
 
 Surveytools2 adapts my previous Surveytools to work with Dplyr, bringing some survey-related functions that are missing from Dyplr's box of tools.
 
-#### add_prefix_to_table_names
 
-Adds a prefix to the names of a table.
-
-```R
-iris %>% add_prefix_to_table_names('iris_', except = 'Species') %>% names
-> [1] "iris_Sepal.Length" "iris_Sepal.Width"  "iris_Petal.Length" "iris_Petal.Width"  "Species"
-```
-
-#### breakdown
-
-Breakdown values of a variable by the number of people who have that value or a higher value.
-
-```R
-iris %>% breakdown('Sepal.Length', seq(10))
->  [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3" "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"  "12 respondents >=  7"
->  [8] "0 respondents >=  8"   "0 respondents >=  9"   "0 respondents >=  10"
-```
-
-#### comparison_table
+#### `comparison_table`
 
 Surveytools was designed with the intention of making it easy to write tabular reports.  `comparison_table` compares a variable across a group, both visually and with an appropriate statistical test.
 
@@ -93,21 +75,7 @@ iris %>% comparison_table(Sepal.Length, Species)
 ```
 
 
-#### count_vars
-For a given variable, counts the number of a particular response to that variable.
-
-This returns 1 if the iris has a Petal.Length or Petal.Width of 1.4 and 0 otherwise:
-
-```R
-iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f. 
-                   # add_ids adds an id column to the dataframe. 
-iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
-```
-
-More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
-
-
-#### tab
+#### `tab`
 Makes a fancy table, inspired from `tab` from STATA.
 
 ```R
@@ -168,6 +136,83 @@ Species ### Petal.Width
 ```
 
 And it has other options too, such as sorting and removing NAs.
+
+
+#### `var_summary`, `data_summary`, and `summary_csv`
+
+Surveytools2 is also designed to help you quickly summarize a table.
+
+```R
+> var_summary(iris$Petal.Width)
+$mean
+[1] 1.199333
+
+$median
+[1] 1.3
+
+$min
+[1] 0.1
+
+$max
+[1] 2.5
+
+$sd
+[1] 0.7622377
+
+$table
+
+0.1 0.2 0.3 0.4 0.5 0.6   1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9   2 2.1 2.2 2.3
+  5  29   7   7   1   1   7   3   5  13   8  12   4   2  12   5   6   6   3   8
+2.4 2.5
+  3   3
+```
+
+`data_summary(iris)` will run `var_summary` on every column, giving you a detailed view of the dataframe.
+
+`summary_csv(data, filename)` will write out the dataframe summary to a CSV (with `filename` being the name of the file you want to write to).
+
+
+
+
+
+
+
+
+
+#### add_prefix_to_table_names
+
+Adds a prefix to the names of a table.
+
+```R
+iris %>% add_prefix_to_table_names('iris_', except = 'Species') %>% names
+> [1] "iris_Sepal.Length" "iris_Sepal.Width"  "iris_Petal.Length" "iris_Petal.Width"  "Species"
+```
+
+#### breakdown
+
+Breakdown values of a variable by the number of people who have that value or a higher value.
+
+```R
+iris %>% breakdown('Sepal.Length', seq(10))
+>  [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3" "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"  "12 respondents >=  7"
+>  [8] "0 respondents >=  8"   "0 respondents >=  9"   "0 respondents >=  10"
+```
+
+
+
+#### count_vars
+For a given variable, counts the number of a particular response to that variable.
+
+This returns 1 if the iris has a Petal.Length or Petal.Width of 1.4 and 0 otherwise:
+
+```R
+iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f. 
+                   # add_ids adds an id column to the dataframe. 
+iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
+```
+
+More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
+
 
 
 #### drop_na_cols
@@ -320,11 +365,6 @@ iris[iris$id %in% c(42, 43), ]
 ```
 
 
-#### var_summary and summarize_csv
-
-Use `var_summary(variable_name)` to quickly summarize `variable_name`, getting information on its class, size, summary statistics (mean, median, min, max, and standard deviation) if it is numeric, and what it looks like (table, head, tail).
-
-To summarize a bunch of variables at once, make a list of those variables (in this example, called `data`) and then use `summary_csv(data, filename)` (with `filename` being the name of the file you want to write to).  This will write a CSV file you can open that has `var_summary` information for each variable.
 
 
 ## Examples

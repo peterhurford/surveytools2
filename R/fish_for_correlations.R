@@ -12,9 +12,12 @@ fish_for_correlations <- function(df, x = 'all', y = 'all', p_threshold = 0.05) 
   for (x_ in x) {
     for (y_ in y) {
       if (x_ != y_) {
-        fish_table <- comparison_table_(df, x_, y_)
         n <- n + 1
-        if (fish_table$stat$p.value < p_threshold) {
+        fish_table <- comparison_table_(df, x_, y_)
+        stat <- fish_table$stat
+        if ("p.value" %in% ls(stat)) { stat <- stat$p.value }
+        else { stat <- as.data.frame(stat$coefficients)[["Pr(>|t|)"]][[2]] }
+        if (stat < p_threshold) {
           fish_tables <- c(fish_tables, fish_table)
         }
       }
