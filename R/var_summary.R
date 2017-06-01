@@ -11,20 +11,25 @@ data_summary <- function(df, ...) {
 #' @param variable character. The variable to summarize.
 #' @param na.rm logical. True to not return NAs (default), false to return NAs.
 #' @param serialize logical. True to join lists into serialized strings, false to not (default)
+#' @param verbose logical. Return even more data about the variable, false to not (default)
 #' @return the class and size of the variable.
 #'    The mean, median, min, max, and SD of the variable if it is numeric.
 #'    A table, head, and tail of the variable if it is not numeric.
 #' @export
-var_summary <- function(variable, na.rm = TRUE, serialize = FALSE) {
+var_summary <- function(variable, na.rm = TRUE, serialize = FALSE, verbose = FALSE) {
   o <- list()
-  varclass <- class(variable[1])
-  o$class <- varclass
-  o$N <- length(variable)
+  if (verbose) {
+    varclass <- class(variable[1])
+    o$class <- varclass
+    o$N <- length(variable)
+  }
 
-  funs <- c('mean', 'median', 'min', 'max', 'sd', 'sum')
+  funs <- c('mean', 'median', 'min', 'max', 'sd')
+  if (verbose) { funs <- c(funs, 'sum') }
   for (fun in funs) { o[[fun]] <- do.call(do_or_na, list(fun, variable, na.rm)) }
 
-  funs <- c('table', 'head', 'tail')
+  funs <- c('table')
+  if (verbose) { funs <- c(funs, 'head', 'tail') }
   for (fun in funs) { o[[fun]] <- do.call(try_serialized, list(fun, variable, serialize)) }
   o[!is.na(o)]
 }
