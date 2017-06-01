@@ -27,4 +27,3 @@ tab(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE,
 \description{
 Makes a fancy table, inspired from `tab` from STATA.
 }
-

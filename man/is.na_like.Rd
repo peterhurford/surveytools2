@@ -12,4 +12,3 @@ is.na_like(x)
 \description{
 Determines if something is NA or NA-like (blank, the string "NA", or "N/A")
 }
-

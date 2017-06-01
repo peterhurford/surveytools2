@@ -20,4 +20,3 @@ age 15 or older, etc. to age 90.}
 \description{
 Breakdown values of a variable by the number of people who have that value or a higher value.
 }
-

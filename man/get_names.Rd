@@ -12,4 +12,3 @@ get_names(pt)
 \description{
 Gets the names of a dplyr postgres table.
 }
-

@@ -14,4 +14,3 @@ gather(pt, ...)
 \description{
 Gets the vector of a particular variable within a dplyr postgres table.
 }
-

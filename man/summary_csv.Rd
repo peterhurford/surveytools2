@@ -17,4 +17,3 @@ TRUE. Generates a CSV file at the designated location.
 \description{
 Creates a CSV file containing summary information on the given variables.
 }
-

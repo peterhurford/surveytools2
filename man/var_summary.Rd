@@ -16,8 +16,8 @@ var_summary(variable, na.rm = TRUE, serialize = FALSE)
 \value{
 the class and size of the variable.
    The mean, median, min, max, and SD of the variable if it is numeric.
+   A table, head, and tail of the variable if it is not numeric.
 }
 \description{
 Prints a summary of the variable.
 }
-

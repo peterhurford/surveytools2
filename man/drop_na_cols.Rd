@@ -14,4 +14,3 @@ drop_na_cols(df, threshold = 0.7)
 \description{
 Drops columns from the dataframe that meet a certain threshold of NAs.
 }
-

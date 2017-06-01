@@ -16,4 +16,3 @@ ignore_by_grep(df, ..., keep = NULL)
 \description{
 Drops all columns that match lists of regex strings.
 }
-

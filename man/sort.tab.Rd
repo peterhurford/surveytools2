@@ -11,4 +11,3 @@ When both frequencies and percentages are displayed, the table can be hard to so
 Sort a tab.
 When both frequencies and percentages are displayed, the table can be hard to sort.
 }
-

@@ -14,4 +14,3 @@ num_respondents(df)
 Calculates the number of total respondents in a dataframe.
 Assumes each column corresponds to a unique respondent.
 }
-
