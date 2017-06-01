@@ -22,4 +22,3 @@ e.g., to replace the value for id #233 with "cat", use
 Renames values within a dataframe based on ids.
 Useful for imputation.
 }
-

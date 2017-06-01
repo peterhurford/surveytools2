@@ -18,4 +18,3 @@ num_answers(df, variable, na = NA)
 Calculates the number of people that answered a particular question.
 Assumes each column corresponds to a unique respondent.
 }
-

@@ -16,4 +16,3 @@ add_prefix_to_table_names(df, prefix, except = NULL)
 \description{
 Adds a prefix to the names of a table.
 }
-

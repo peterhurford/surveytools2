@@ -18,4 +18,3 @@ replace(df, col, expr, value)
 \description{
 Replace a value within a dataframe.
 }
-

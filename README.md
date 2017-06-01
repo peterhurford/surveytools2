@@ -37,26 +37,8 @@ Much cleaner code!  Yay!  Read more from [RStudio](http://blog.rstudio.org/2014/
 
 Surveytools2 adapts my previous Surveytools to work with Dplyr, bringing some survey-related functions that are missing from Dyplr's box of tools.
 
-#### add_prefix_to_table_names
 
-Adds a prefix to the names of a table.
-
-```R
-iris %>% add_prefix_to_table_names('iris_', except = 'Species') %>% names
-> [1] "iris_Sepal.Length" "iris_Sepal.Width"  "iris_Petal.Length" "iris_Petal.Width"  "Species"
-```
-
-#### breakdown
-
-Breakdown values of a variable by the number of people who have that value or a higher value.
-
-```R
-iris %>% breakdown('Sepal.Length', seq(10))
->  [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3" "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"  "12 respondents >=  7"
->  [8] "0 respondents >=  8"   "0 respondents >=  9"   "0 respondents >=  10"
-```
-
-#### comparison_table
+#### `comparison_table`
 
 Surveytools was designed with the intention of making it easy to write tabular reports.  `comparison_table` compares a variable across a group, both visually and with an appropriate statistical test.
 
@@ -93,21 +75,7 @@ iris %>% comparison_table(Sepal.Length, Species)
 ```
 
 
-#### count_vars
-For a given variable, counts the number of a particular response to that variable.
-
-This returns 1 if the iris has a Petal.Length or Petal.Width of 1.4 and 0 otherwise:
-
-```R
-iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f. 
-                   # add_ids adds an id column to the dataframe. 
-iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
-```
-
-More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
-
-
-#### tab
+#### `tab`
 Makes a fancy table, inspired from `tab` from STATA.
 
 ```R
@@ -170,67 +138,43 @@ Species ### Petal.Width
 And it has other options too, such as sorting and removing NAs.
 
 
-#### drop_na_cols
+#### `fish_for_correlations`
 
-Drops columns with an amount of NAs over a certain threshold.
-
-```R
-iris$Petal.Width <- NA   # Make Petal.Width NA
-iris %>% drop_na_cols %>% names
-> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Species"
-# Note that Petal.Width is dropped.
-```
+`fish_for_correlations(data)` iterates over the entire dataframe and finds (probably spurious) correlations.
 
 
-#### gather
+#### `var_summary`, `data_summary`, and `summary_csv`
 
-Gathers the vector of values within a table.  Particularly useful for working with postgres tables from dplyr.
+Surveytools2 is also designed to help you quickly summarize a table.
 
 ```R
-data(iris)  # Reset iris variable
-iris %>% gather(Petal.Width) %>% head
-> [1] 0.2 0.2 0.2 0.2 0.2 0.4 
+> var_summary(iris$Petal.Width)
+$mean
+[1] 1.199333
+
+$median
+[1] 1.3
+
+$min
+[1] 0.1
+
+$max
+[1] 2.5
+
+$sd
+[1] 0.7622377
+
+$table
+
+0.1 0.2 0.3 0.4 0.5 0.6   1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9   2 2.1 2.2 2.3
+  5  29   7   7   1   1   7   3   5  13   8  12   4   2  12   5   6   6   3   8
+2.4 2.5
+  3   3
 ```
 
+`data_summary(iris)` will run `var_summary` on every column, giving you a detailed view of the dataframe.
 
-#### get_names
-
-Gets the names from a dplyr postgres table.  Works the same as `names` on a regular table.
-
-```R
-iris %>% get_names
-> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
-```
-
-
-#### ignore_by_grep
-
-Drops all the columns of a database by regex strings.
-
-```R
-iris %>% ignore_by_grep('Petal') %>% names
-> [1] "Sepal.Length" "Sepal.Width"  "Species"
-```
-
-
-#### is.na_like
-
-Detects NAs, but also blanks (`""`), the string NA (`"NA"`), and the string `"N/A"`.  This removes most NA vars from surveys.
-
-```R
-is.na_like("")
-> [1] TRUE
-```
-
-
-#### na.rm
-
-Takes a vector and removes all NA-like values.
-
-```R
-c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
-> [1] "1" "2" "3" "4" "5" "6"
-```
+`summary_csv(data, filename)` will write out the dataframe summary to a CSV (with `filename` being the name of the file you want to write to).
 
 
 #### num_respondents
@@ -272,22 +216,6 @@ df %>% response_rate('q1')
 ```
 
 
-#### swap_by_ids
-
-Changes the answer of a particular question by the id of the user.  Useful for imputation.
-
-```R
-iris %<>% add_ids  # Add ids to iris
-iris[iris$id == 42, ]
-> id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-> 42 42          4.5         2.3          1.3         0.3  setosa
-iris %<>% swap_by_ids('Petal.Length', list('42' = 'test'))
-iris[iris$id == 42, ]
-> id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-> 42 42          4.5         2.3          test         0.3  setosa
-```
-
-
 #### swap_by_value
 
 Swaps particular values with other values within the dataframe.  Useful for imputation.
@@ -301,6 +229,22 @@ iris %<>% swap_by_value('Species', list('setosa' = 'virginica'))
 iris %>% gather(Species) %>% table
 >     setosa versicolor  virginica
 >        0         50         100
+```
+
+
+#### swap_by_ids
+
+Changes the answer of a particular question by the id of the user.  Useful for imputation.
+
+```R
+iris %<>% add_ids  # Add ids to iris
+iris[iris$id == 42, ]
+> id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+> 42 42          4.5         2.3          1.3         0.3  setosa
+iris %<>% swap_by_ids('Petal.Length', list('42' = 'test'))
+iris[iris$id == 42, ]
+> id Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+> 42 42          4.5         2.3          test         0.3  setosa
 ```
 
 
@@ -320,11 +264,71 @@ iris[iris$id %in% c(42, 43), ]
 ```
 
 
-#### var_summary and summarize_csv
+#### breakdown
 
-Use `var_summary(variable_name)` to quickly summarize `variable_name`, getting information on its class, size, summary statistics (mean, median, min, max, and standard deviation) if it is numeric, and what it looks like (table, head, tail).
+Breakdown values of a variable by the number of people who have that value or a higher value.
 
-To summarize a bunch of variables at once, make a list of those variables (in this example, called `data`) and then use `summary_csv(data, filename)` (with `filename` being the name of the file you want to write to).  This will write a CSV file you can open that has `var_summary` information for each variable.
+```R
+iris %>% breakdown('Sepal.Length', seq(10))
+>  [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3" "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"  "12 respondents >=  7"
+>  [8] "0 respondents >=  8"   "0 respondents >=  9"   "0 respondents >=  10"
+```
+
+
+#### get_vars
+
+An easier way to get all the variables that start with a certain pattern.
+
+```R
+> get_vars(iris, "Sepal")
+[1] "Sepal.Length" "Sepal.Width"
+```
+
+#### count_vars
+
+For a given variable, counts the number of a particular response to that variable.
+
+This returns 1 if the iris has a Petal.Length or Petal.Width of 1.4 and 0 otherwise:
+
+```R
+iris %<>% add_ids  # x %<>% f is the same as x <- x %>% f. 
+                   # add_ids adds an id column to the dataframe. 
+iris %>% count_vars(c('Petal.Length', 'Petal.Width'), 1.4)
+```
+
+More useful to summarize across larger groups of variables, such as finding the number of "Yes" responses given to a group of questions.
+
+
+#### drop_na_cols
+
+Drops columns with an amount of NAs over a certain threshold.
+
+```R
+iris$Petal.Width <- NA   # Make Petal.Width NA
+iris %>% drop_na_cols %>% names
+> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Species"
+# Note that Petal.Width is dropped.
+```
+
+
+#### is.na_like
+
+Detects NAs, but also blanks (`""`), the string NA (`"NA"`), and the string `"N/A"`.  This removes most NA vars from surveys.
+
+```R
+is.na_like("")
+> [1] TRUE
+```
+
+
+#### na.rm
+
+Takes a vector and removes all NA-like values.
+
+```R
+c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
+> [1] "1" "2" "3" "4" "5" "6"
+```
 
 
 ## Examples

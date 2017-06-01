@@ -18,4 +18,3 @@ response_rate(df, variable, na = NA)
 Calculates the response rate to a particular question.
 Assumes each column corresponds to a unique respondent.
 }
-

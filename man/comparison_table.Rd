@@ -2,8 +2,8 @@
 % Please edit documentation in R/comparison_table.R
 \name{comparison_table}
 \alias{comparison_table}
-\alias{ctab}
 \alias{ctable}
+\alias{ctab}
 \title{Compares a variable across a group, both visually and with an appropriate statistical test.}
 \usage{
 comparison_table(data, variable, groupby, type = NULL, na.rm = FALSE)
@@ -23,4 +23,3 @@ This can be automatically inferred by whether the variable is numeric or not.}
 \description{
 Compares a variable across a group, both visually and with an appropriate statistical test.
 }
-

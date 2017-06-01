@@ -27,4 +27,3 @@ Useful for imputation.
 \seealso{
 swap_by_ids
 }
-

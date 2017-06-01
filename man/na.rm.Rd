@@ -12,4 +12,3 @@ na.rm(vec)
 \description{
 Deletes all NA and NA-like values from a vector.
 }
-

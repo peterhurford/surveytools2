@@ -9,4 +9,3 @@
 \description{
 Print the table without annoyingly displaying the class.
 }
-

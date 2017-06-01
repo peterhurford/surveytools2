@@ -14,4 +14,3 @@ add_ids(df, idname = "id")
 \description{
 Adds an id column to a given variable.
 }
-

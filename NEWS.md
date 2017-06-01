@@ -1,3 +1,14 @@
+## v0.4
+
+* Added a function `fish_for_correlations` that analyzes a dataframe for correlations.
+* Added `get_vars` to streamline finding all names in a dataframe that match a pattern.
+* Added `%not_in%`, the opposite of `%in%`.
+* Added `data_summary` to extend `var_summary` to an entire dataframe.
+* Removed some features of `var_summary`, restore them by using `verbose = TRUE`.
+
+
+
+
 #### v0.3.10
 
 * Bugfix for `swap_by_value` when the dataframe has NAs.
@@ -30,6 +41,8 @@
 ## v0.3.0-1
 
 * Add `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
+
+
 
 
 #### v0.2.4

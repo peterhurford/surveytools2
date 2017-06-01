@@ -23,4 +23,3 @@ count_vars(df, vars, response = 1, idname = "id", colname = "value",
 \description{
 Count the amount of a particlar response that respondents have across a group of vars.
 }
-

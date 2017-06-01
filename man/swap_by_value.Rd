@@ -20,4 +20,3 @@ e.g., to replace all instances of "dog" with "cat", use
 Renames values within a dataframe based on a list of swaps to make.
 Useful for imputation.
 }
-
