@@ -1,3 +1,7 @@
+#### v0.4.13
+
+* `swap_by_value` now no longer uses direct substitution and enforces a correct swap_list.
+
 #### v0.4.12
 
 * `swap_by_value` can now swap based on a grep-pattern.
