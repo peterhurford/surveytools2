@@ -1,3 +1,9 @@
+#### v0.4.15
+
+* `var_summary` no longer tracks the `class` of the object.
+* `var_summary` now reports the number of NAs and the number of values > 0 for numeric variables when called with `verbose = TRUE`.
+* `var_summary` now reports the number of NAs for non-numeric variables when called with `verbose = TRUE`.
+
 #### v0.4.14
 
 * `var_summary` no longer displays a table of numeric variables (as originally intended).
