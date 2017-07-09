@@ -1,10 +1,15 @@
-## v0.4
+#### v0.4.11
+
+* `get_vars` now supports multiple patterns passed as a vector.
+
+## v0.4.10
 
 * Added a function `fish_for_correlations` that analyzes a dataframe for correlations.
 * Added `get_vars` to streamline finding all names in a dataframe that match a pattern.
 * Added `%not_in%`, the opposite of `%in%`.
 * Added `data_summary` to extend `var_summary` to an entire dataframe.
 * Removed some features of `var_summary`, restore them by using `verbose = TRUE`.
+* (Note: the `.10` minor versioning for this release was a mistake.)
 
 
 
