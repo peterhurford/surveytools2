@@ -4,14 +4,12 @@
 \alias{var_summary}
 \title{Prints a summary of the variable.}
 \usage{
-var_summary(variable, na.rm = TRUE, serialize = FALSE, verbose = FALSE)
+var_summary(variable, na.rm = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{variable}{character. The variable to summarize.}
 
 \item{na.rm}{logical. True to not return NAs (default), false to return NAs.}
-
-\item{serialize}{logical. True to join lists into serialized strings, false to not (default)}
 
 \item{verbose}{logical. Return even more data about the variable, false to not (default)}
 }

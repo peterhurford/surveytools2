@@ -149,27 +149,8 @@ Surveytools2 is also designed to help you quickly summarize a table.
 
 ```R
 > var_summary(iris$Petal.Width)
-$mean
-[1] 1.199333
-
-$median
-[1] 1.3
-
-$min
-[1] 0.1
-
-$max
-[1] 2.5
-
-$sd
-[1] 0.7622377
-
-$table
-
-0.1 0.2 0.3 0.4 0.5 0.6   1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9   2 2.1 2.2 2.3
-  5  29   7   7   1   1   7   3   5  13   8  12   4   2  12   5   6   6   3   8
-2.4 2.5
-  3   3
+   mean    median       min       max        sd
+   1.1993333 1.3000000 0.1000000 2.5000000 0.7622377
 ```
 
 `data_summary(iris)` will run `var_summary` on every column, giving you a detailed view of the dataframe.

@@ -1,3 +1,9 @@
+#### v0.4.14
+
+* `var_summary` no longer displays a table of numeric variables (as originally intended).
+* `var_summary` returns as a named vector if possible.
+* `var_summary` no longer supports `serialize`.
+
 #### v0.4.13
 
 * `swap_by_value` now no longer uses direct substitution and enforces a correct swap_list.
