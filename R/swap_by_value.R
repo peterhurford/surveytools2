@@ -9,10 +9,18 @@
 #' e.g., to replace all instances of "dog" with "cat", use
 #' \code{list('dog' = 'cat')}
 #'
+#' @param grep logical. Should values be searched by grep (grep = TRUE) or just found by full name (default)?
+#'
 #' @export
-swap_by_value <- function(df, variable, swap_list) {
-  sapply(names(swap_list), function(x) {
-    df[df[[variable]] == x & !is.na(df[[variable]]), variable] <<- swap_list[[x]]
-  })
+swap_by_value <- function(df, variable, swap_list, grep = FALSE) {
+  if (isTRUE(grep)) {
+    sapply(names(swap_list), function(x) {
+      df[grepl(x, df[[variable]]) & !is.na(df[[variable]]), variable] <<- swap_list[[x]]
+    })
+  } else {
+    sapply(names(swap_list), function(x) {
+      df[df[[variable]] == x & !is.na(df[[variable]]), variable] <<- swap_list[[x]]
+    })
+  }
   df
 }
