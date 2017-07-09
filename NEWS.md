@@ -1,3 +1,7 @@
+#### v0.4.12
+
+* `swap_by_value` can now swap based on a grep-pattern.
+
 #### v0.4.11
 
 * `get_vars` now supports multiple patterns passed as a vector.

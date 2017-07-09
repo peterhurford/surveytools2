@@ -4,12 +4,15 @@
 \alias{get_vars}
 \title{Get the names from a dataframe that match a pattern.}
 \usage{
-get_vars(df, pattern, ...)
+get_vars(df, pattern, collapse = FALSE, ...)
 }
 \arguments{
 \item{df}{dataframe. The dataframe to search the names of.}
 
-\item{pattern}{character. The pattern to search for.}
+\item{pattern}{character. The pattern or patterns to search for.}
+
+\item{collapse}{logical. When using multiple patterns, whether to return
+as one list (collapse = TRUE) or as multiple lists (FALSE, default).}
 
 \item{...}{list. Additional arguments to send to grep.}
 }
