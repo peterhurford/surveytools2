@@ -17,19 +17,13 @@ data_summary <- function(df, ...) {
 #' @export
 var_summary <- function(variable, na.rm = TRUE, verbose = FALSE) {
   o <- list()
-  if (verbose) {
-    varclass <- class(variable[1])
-    o$class <- varclass
-    o$N <- length(variable)
-  }
-
   funs <- c('mean', 'median', 'min', 'max', 'sd')
-  if (verbose) { funs <- c(funs, 'sum') }
+  if (verbose) { funs <- c(funs, 'length', 'sum', 'num_na', 'num_over_zero') }
   for (fun in funs) { o[[fun]] <- do.call(do_or_na, list(fun, variable, na.rm)) }
 
   if (is.na(o$mean)) {
     funs <- c('table')
-    if (verbose) { funs <- c(funs, 'head', 'tail') }
+    if (verbose) { funs <- c(funs, 'head', 'tail', 'num_na') }
     for (fun in funs) { o[[fun]] <- do.call(fun, list(variable)) }
   }
 
@@ -39,6 +33,11 @@ var_summary <- function(variable, na.rm = TRUE, verbose = FALSE) {
 }
 
 do_or_na <- function(method, variable, na.rm = TRUE) {
-  if (is.numeric(variable)) { do.call(method, list(variable, na.rm = na.rm)) }
+  if (is.numeric(variable)) {
+    tryCatch(
+      { do.call(method, list(variable, na.rm = na.rm)) },
+      error = function(e) { do.call(method, list(variable)) }
+    )
+  }
   else { NA }
 }
