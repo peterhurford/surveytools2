@@ -5,7 +5,7 @@
 \title{Renames values within a dataframe based on a list of swaps to make.
 Useful for imputation.}
 \usage{
-swap_by_value(df, variable, swap_list)
+swap_by_value(df, variable, swap_list, grep = FALSE)
 }
 \arguments{
 \item{df}{data frame.  The data to be transformed.}
@@ -15,6 +15,8 @@ swap_by_value(df, variable, swap_list)
 \item{swap_list}{list. A list mapping current values to what they should be.
 e.g., to replace all instances of "dog" with "cat", use
 \code{list('dog' = 'cat')}}
+
+\item{grep}{logical. Should values be searched by grep (grep = TRUE) or just found by full name (default)?}
 }
 \description{
 Renames values within a dataframe based on a list of swaps to make.
