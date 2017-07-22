@@ -6,12 +6,13 @@
 #' @param type character. "Continuous" if `variable` is continuous data (like age), or "categorical" / "discrete" if `variable` is categorical data (like hometown).
 #'   This can be automatically inferred by whether the variable is numeric or not.
 #' @param na.rm logical. Whether or not to remove NAs from the variables being considered.
+#' @param top numeric. See documentation for `tab`.
 #' @aliases ctable ctab
 #' @export
-comparison_table <- function(data, variable, groupby, type = NULL, na.rm = FALSE) {
+comparison_table <- function(data, variable, groupby, type = NULL, na.rm = FALSE, top = 0) {
   variable <- lazyeval::as.lazy(substitute(variable))
   groupby  <- lazyeval::as.lazy(substitute(groupby))
-  comparison_table_(data, variable, groupby, type = type, na.rm = na.rm)
+  comparison_table_(data, variable, groupby, type = type, na.rm = na.rm, top = top)
 }
 
 #' @import checkr magrittr
@@ -20,9 +21,10 @@ comparison_table_ <- checkr::ensure(
     variable %is% simple_string || variable %is% lazy,
     groupby %is% simple_string || groupby %is% lazy,
     type %is% NULL || type %in% c("continuous", "discrete", "categorical"),
-    na.rm %is% logical
+    na.rm %is% logical,
+    top %is% numeric, top >= 0
   ),
-  function(data, variable, groupby, type = NULL, na.rm = FALSE) {
+  function(data, variable, groupby, type = NULL, na.rm = FALSE, top = 0) {
     if (variable %is% lazy) {
       x <- lazyeval::lazy_eval(variable, data = data)
       y <- lazyeval::lazy_eval(groupby, data = data)
@@ -47,7 +49,7 @@ comparison_table_ <- checkr::ensure(
     if (identical(type, "discrete")) { type <- "categorical" }
 
     out <- list(
-      table = table_for(data, variable, groupby, type = type, na.rm = na.rm),
+      table = table_for(data, variable, groupby, type = type, na.rm = na.rm, top = top),
       stat  = stat_for(x, y, type = type)
     )
     class(out) <- "comparison_table"
@@ -61,9 +63,9 @@ stat_for <- function(x, y, type) {
 stat_for_continuous <- function(x, y) {  (x ~ y) %>% lm %>% summary }
 stat_for_categorical <- function(x, y) { chisq.test(x, y) }
 
-table_for <- function(data, variable, groupby, type, na.rm) {
+table_for <- function(data, variable, groupby, type, na.rm, top) {
   if (identical(type, "continuous")) { table_for_continuous(data, variable, groupby) }
-  else { table_for_categorical(data, variable, groupby, na.rm = na.rm) }
+  else { table_for_categorical(data, variable, groupby, na.rm = na.rm, top = top) }
 }
 table_for_continuous <- function(data, variable, groupby) {
   t <- data %>% dplyr::mutate_(.dots = list(group = groupby)) %>%
@@ -76,8 +78,8 @@ table_for_continuous <- function(data, variable, groupby) {
   attr(t, "na.rm") <- TRUE
   t
 }
-table_for_categorical <- function(data, variable, groupby, na.rm = FALSE) {
-  data %>% tab_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE, na.rm = na.rm)
+table_for_categorical <- function(data, variable, groupby, na.rm = FALSE, top = 0) {
+  data %>% tab_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE, na.rm = na.rm, top = top)
 }
 
 #' @export
