@@ -64,15 +64,18 @@ stat_for_continuous <- function(x, y) {  (x ~ y) %>% lm %>% summary }
 stat_for_categorical <- function(x, y) { chisq.test(x, y) }
 
 table_for <- function(data, variable, groupby, type, na.rm, top) {
-  if (identical(type, "continuous")) { table_for_continuous(data, variable, groupby) }
+  if (identical(type, "continuous")) { table_for_continuous(data, variable, groupby, na.rm = na.rm) }
   else { table_for_categorical(data, variable, groupby, na.rm = na.rm, top = top) }
 }
-table_for_continuous <- function(data, variable, groupby) {
+table_for_continuous <- function(data, variable, groupby, na.rm) {
   t <- data %>% dplyr::mutate_(.dots = list(group = groupby)) %>%
-    dplyr::group_by(group) %>%
-    dplyr::select_(variable) %>%
-    dplyr::summarise_each(dplyr::funs(
-      mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
+          dplyr::select_(variable, groupby)
+  if (isTRUE(na.rm)) {
+    t <- na.omit(t)
+  }
+  t <- dplyr::group_by_(t, groupby) %>%
+         dplyr::summarise_each(., dplyr::funs(
+           mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
   attr(t, "left_var") <- get_varname(variable)
   attr(t, "upper_var") <- get_varname(groupby)
   attr(t, "na.rm") <- TRUE
