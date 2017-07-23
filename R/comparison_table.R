@@ -68,12 +68,11 @@ table_for <- function(data, variable, groupby, type, na.rm, top) {
   else { table_for_categorical(data, variable, groupby, na.rm = na.rm, top = top) }
 }
 table_for_continuous <- function(data, variable, groupby, na.rm) {
-  t <- data %>% dplyr::mutate_(.dots = list(group = groupby)) %>%
-          dplyr::select_(variable, groupby)
+  t <- dplyr::select_(data, get_base_varname(variable), get_base_varname(groupby))
   if (isTRUE(na.rm)) {
     t <- na.omit(t)
   }
-  t <- dplyr::group_by_(t, groupby) %>%
+  t <- dplyr::group_by_(t, get_base_varname(groupby)) %>%
          dplyr::summarise_each(., dplyr::funs(
            mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
   attr(t, "left_var") <- get_varname(variable)
@@ -82,7 +81,7 @@ table_for_continuous <- function(data, variable, groupby, na.rm) {
   t
 }
 table_for_categorical <- function(data, variable, groupby, na.rm = FALSE, top = 0) {
-  data %>% tab_(.dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE, na.rm = na.rm, top = top)
+  tab_(data, .dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE, na.rm = na.rm, top = top)
 }
 
 #' @export
