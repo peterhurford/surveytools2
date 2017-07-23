@@ -1,3 +1,8 @@
+#### v0.4.16
+
+* `tab` and `comparison_table` get a parameter `top` that can constrain the number of levels outputted, putting all minor levels in a single bin called "Other".
+* `na.rm = TRUE` now works in `comparison_table`.
+
 #### v0.4.15
 
 * `var_summary` no longer tracks the `class` of the object.
