@@ -2,24 +2,33 @@
 #'
 #' @param .data data frame. The data to put in the table.
 #' @param ... The variables to plot in the table. Currently supports one or two variables.
-#' @param freq logical. If true, frequencies are printed in the table.
-#' @param percent logical. If true, percentages are printed in the table.
-#' @param byrow logical. If true, percentages are row percentages.  If false, column percentages.  If NULL, individual cell percentages.
-#' @param sort logical. If true, the resulting table is sorted (if possible).
-#' @param sort.decreasing logical. If true, the sort is preformed in a descending manner.
-#' @param na.rm logical. If true, all NAs and NA-like entries are removed from the data before tabling.
+#' @param top numeric. If >0, all vectors will only print the top N elements and all other elements will be called "Other", where N is the value for top.
+#' @param freq logical. If TRUE, frequencies are printed in the table.
+#' @param percent logical. If TRUE, percentages are printed in the table.
+#' @param byrow logical. If TRUE, percentages are row percentages.  If false, column percentages.  If NULL, individual cell percentages.
+#' @param sort logical. If TRUE, the resulting table is sorted (if possible).
+#' @param sort.decreasing logical. If TRUE, the sort is preformed in a descending manner.
+#' @param na.rm logical. If TRUE, all NAs and NA-like entries are removed from the data before tabling.
 #' @export
-tab <- function(.data, ..., freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE)
-  tab_(.data, .dots = lazyeval::lazy_dots(...), freq = freq, percent = percent, byrow = byrow, sort = sort, sort.decreasing = sort.decreasing, na.rm = na.rm)
+tab <- function(.data, ..., top = 0, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE)
+  tab_(.data, .dots = lazyeval::lazy_dots(...), top = top, freq = freq, percent = percent, byrow = byrow, sort = sort, sort.decreasing = sort.decreasing, na.rm = na.rm)
 
 #' @export
-tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE) {
+tab_ <- function(.data, .dots, top = 0, freq = TRUE, percent = FALSE, byrow = TRUE, sort = TRUE, sort.decreasing = TRUE, na.rm = FALSE) {
   if (!isTRUE(freq) & !isTRUE(percent)) stop("No frequency and no percent makes for a blank table.")
   l <- lapply(.dots, function(d) {
     if (d %is% lazy) { lazyeval::lazy_eval(d, data = .data) }
     else if (is.character(d)) {  .data[[d]] }
     else { stop("Class not recognized") }
   })
+  if (top > 0) {
+    l <- lapply(l, function(x) {
+      freqs <- as.list(table(x))
+      top_names <- names(sort(unlist(freqs), decreasing = TRUE))[seq(top)]
+      x[x %not_in% top_names] <- "Other"
+      x
+    })
+  }
   if (isTRUE(na.rm)) {
     nas <- Reduce(`&`, lapply(l, Negate(is.na_like)))
     l <- lapply(l, `[`, nas)
@@ -53,7 +62,7 @@ tab_ <- function(.data, .dots, freq = TRUE, percent = FALSE, byrow = TRUE, sort 
     if (isTRUE(sort) & length(dim(t)) == 1) t <- sort(t, decreasing = sort.decreasing)
     t
   }
-  class(t) <- c("tab", class(t))
+  class(t) <- c("tab", "list")
   attr(t, "left_var") <- get_varname(.dots[[1]])  # Store the variable names for printing
   if (length(.dots) > 1) { attr(t, "upper_var") <- get_varname(.dots[[2]]) }
   attr(t, "na.rm") <- na.rm
