@@ -1,3 +1,7 @@
+#### v0.4.17
+
+* Fixes a bug in `comparison_table` for some logical operator comparisons involving continuous data, introduced by v0.4.16.
+
 #### v0.4.16
 
 * `tab` and `comparison_table` get a parameter `top` that can constrain the number of levels outputted, putting all minor levels in a single bin called "Other".
