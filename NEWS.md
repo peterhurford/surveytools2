@@ -8,6 +8,8 @@
 
 *Minor*
 
+* Fixed a bug that prevented `response_rate` from working.
+* Fixed a bug that prevented NA values from being printed in the table when `na.rm = FALSE`.
 * `swap_by_value` can now swap for multiple variables.
 * `num_over_zero` now has a `na.rm` parameter.
 * `breakdown` now handles passing in the variable as a string.
