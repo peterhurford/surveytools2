@@ -6,7 +6,8 @@
 \alias{ctab}
 \title{Compares a variable across a group, both visually and with an appropriate statistical test.}
 \usage{
-comparison_table(data, variable, groupby, type = NULL, na.rm = FALSE)
+comparison_table(data, variable, groupby, type = NULL, na.rm = FALSE,
+  top = 0)
 }
 \arguments{
 \item{data}{data frame. The data to test.}
@@ -17,6 +18,8 @@ comparison_table(data, variable, groupby, type = NULL, na.rm = FALSE)
 This can be automatically inferred by whether the variable is numeric or not.}
 
 \item{na.rm}{logical. Whether or not to remove NAs from the variables being considered.}
+
+\item{top}{numeric. See documentation for `tab`.}
 
 \item{variable.}{If character, the name of the variable to test.}
 }

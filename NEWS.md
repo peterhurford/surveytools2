@@ -1,6 +1,7 @@
 #### v???
 
-* `swap_by_value` can swap for multiple variables.
+* `swap_by_value` can now swap for multiple variables.
+* `drop_values` can drop individual values from a variable.
 
 #### v0.4.17
 
