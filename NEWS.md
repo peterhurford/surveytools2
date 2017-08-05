@@ -8,6 +8,7 @@
 
 * `swap_by_value` can now swap for multiple variables.
 * `num_over_zero` now has a `na.rm` parameter.
+* `breakdown` now handles passing in the variable as a string.
 
 
 
