@@ -3,6 +3,8 @@
 *Major*
 
 * `drop_values` can drop individual values from a variable.
+* `apply_over_vars` allows you to apply a function over variables in a dataframe by specifying the names of the variables.
+* `cut3` supports splitting a vector into roughly even-sized bins.
 
 *Minor*
 
