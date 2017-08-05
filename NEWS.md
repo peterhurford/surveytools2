@@ -1,7 +1,16 @@
-#### v???
+## v0.5
+
+*Major*
+
+* `drop_values` can drop individual values from a variable.
+
+*Minor*
 
 * `swap_by_value` can now swap for multiple variables.
-* `drop_values` can drop individual values from a variable.
+* `num_over_zero` now has a `na.rm` parameter.
+
+
+
 
 #### v0.4.17
 
