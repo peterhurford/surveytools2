@@ -15,7 +15,7 @@ num_respondents <- function(df) { NROW(df) }
 #' @export
 num_answers <- function(df, variable, na = NA) {
   if (!is.character(substitute(variable))) { variable <- deparse(substitute(variable)) }
-  num_answers_(df, deparse(substitute(variable)), na = na)
+  num_answers_(df, variable, na = na)
 }
 
 num_answers_ <- function(df, variable, na = NA) {
