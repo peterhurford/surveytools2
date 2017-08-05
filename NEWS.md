@@ -1,3 +1,7 @@
+#### v???
+
+* `swap_by_value` can swap for multiple variables.
+
 #### v0.4.17
 
 * Fixes a bug in `comparison_table` for some logical operator comparisons involving continuous data, introduced by v0.4.16.
