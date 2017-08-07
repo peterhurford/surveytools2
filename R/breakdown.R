@@ -9,7 +9,8 @@
 #' age 15 or older, etc. to age 90.
 #' @export
 breakdown <- function(df, variable, breakdowns) {
-  breakdown_(df, deparse(substitute(variable)), breakdowns)
+  if (!is.character(substitute(variable))) { variable <- deparse(substitute(variable)) }
+  breakdown_(df, variable, breakdowns)
 }
 
 breakdown_ <- function(df, variable, breakdowns) {

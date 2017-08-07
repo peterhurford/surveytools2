@@ -16,13 +16,19 @@ swap_by_value <- function(df, variable, swap_list, grep = FALSE) {
   if ("" %in% names(swap_list)) {
     stop("Your swap_list is misconfigured. All elements of the swap_list must be named.")
   }
-  if (isTRUE(grep)) {
-    for (swap in names(swap_list)) {
-      df[grepl(swap, df[[variable]]) & !is.na(df[[variable]]), variable] <- swap_list[[swap]]
+  if (length(variable) > 1) {
+    for (var in variable) {
+      df <- swap_by_value(df, var, swap_list, grep = grep)
     }
   } else {
-    for (swap in names(swap_list)) {
-      df[df[[variable]] == swap & !is.na(df[[variable]]), variable] <- swap_list[[swap]]
+    if (isTRUE(grep)) {
+      for (swap in names(swap_list)) {
+        df[grepl(swap, df[[variable]]) & !is.na(df[[variable]]), variable] <- swap_list[[swap]]
+      }
+    } else {
+      for (swap in names(swap_list)) {
+        df[df[[variable]] == swap & !is.na(df[[variable]]), variable] <- swap_list[[swap]]
+      }
     }
   }
   df

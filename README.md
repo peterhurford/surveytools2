@@ -292,6 +292,16 @@ iris %>% drop_na_cols %>% names
 ```
 
 
+#### `drop_values`
+
+```R
+unique(as.character(iris$Species))
+> [1] "setosa"     "versicolor" "virginica"
+unique(drop_values(as.character(iris$Species), c("setosa", "virginica")))
+> [1] NA           "versicolor"
+```
+
+
 #### `is.na_like`
 
 Detects NAs, but also blanks (`""`), the string NA (`"NA"`), and the string `"N/A"`.  This removes most NA vars from surveys.
@@ -312,6 +322,51 @@ c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
 ```
 
 
+#### `apply_over_vars`
+
+```R
+apply_over_vars(iris, c("Petal.Length", "Petal.Width"), mean)
+> $Petal.Length
+> [1] 3.758
+
+> $Petal.Width
+> [1] 1.199333
+```
+
+
+#### `cut3`
+
+```R`
+cut3(seq(10), 4)
+> [[1]]
+> [1] 1 2 3
+> 
+> [[2]]
+> [1] 4 5 6
+> 
+> [[3]]
+> [1] 7 8
+> 
+> [[4]]
+> [1]  9 10
+
+lapply(cut3(iris$Petal.Width, 5), mean)
+> [[1]]
+> [1] 0.1833333
+> 
+> [[2]]
+> [1] 0.57
+> 
+> [[3]]
+> [1] 1.336667
+> 
+> [[4]]
+> [1] 1.7
+> 
+> [[5]]
+> [1] 2.206667
+
+
 ## Examples
 
-* [The .impact survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)
+* [The EA Survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)

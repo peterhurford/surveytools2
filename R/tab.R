@@ -33,7 +33,7 @@ tab_ <- function(.data, .dots, top = 0, freq = TRUE, percent = FALSE, byrow = TR
     nas <- Reduce(`&`, lapply(l, Negate(is.na_like)))
     l <- lapply(l, `[`, nas)
   }
-  t <- do.call(table, l)
+  t <- do.call(table, c(l, useNA = if (isTRUE(na.rm)) { "no" } else { "ifany" }))
   t <- if (isTRUE(percent)) {
     if (length(dim(t)) == 1) byrow <- NULL
     if (!is.null(byrow)) { byrow <- if (isTRUE(byrow)) 1 else 2 }

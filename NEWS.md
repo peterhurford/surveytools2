@@ -1,3 +1,22 @@
+## v0.5
+
+*Major*
+
+* `drop_values` can drop individual values from a variable.
+* `apply_over_vars` allows you to apply a function over variables in a dataframe by specifying the names of the variables.
+* `cut3` supports splitting a vector into roughly even-sized bins.
+
+*Minor*
+
+* Fixed a bug that prevented `response_rate` from working.
+* Fixed a bug that prevented NA values from being printed in the table when `na.rm = FALSE`.
+* `swap_by_value` can now swap for multiple variables.
+* `num_over_zero` now has a `na.rm` parameter.
+* `breakdown` now handles passing in the variable as a string.
+
+
+
+
 #### v0.4.17
 
 * Fixes a bug in `comparison_table` for some logical operator comparisons involving continuous data, introduced by v0.4.16.
