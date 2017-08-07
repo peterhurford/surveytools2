@@ -1,3 +1,7 @@
+#### v0.5.1
+
+* Adds `nas_are_zeros` to convert NAs to zeros.
+
 ## v0.5
 
 *Major*
