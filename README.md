@@ -336,7 +336,7 @@ apply_over_vars(iris, c("Petal.Length", "Petal.Width"), mean)
 
 #### `cut3`
 
-```R`
+```R
 cut3(seq(10), 4)
 > [[1]]
 > [1] 1 2 3
@@ -365,7 +365,7 @@ lapply(cut3(iris$Petal.Width, 5), mean)
 > 
 > [[5]]
 > [1] 2.206667
-
+```
 
 ## Examples
 
