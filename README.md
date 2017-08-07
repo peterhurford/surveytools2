@@ -369,4 +369,4 @@ lapply(cut3(iris$Petal.Width, 5), mean)
 
 ## Examples
 
-* [The .impact survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)
+* [The EA Survey](https://github.com/peterhurford/imsurvey/blob/master/imsurvey.R)
