@@ -76,6 +76,7 @@ iris %>% comparison_table(Sepal.Length, Species)
 
 
 #### `tab`
+
 Makes a fancy table, inspired from `tab` from STATA.
 
 ```R
@@ -294,6 +295,8 @@ iris %>% drop_na_cols %>% names
 
 #### `drop_values`
 
+Drop values from a variable based on the names of those values.
+
 ```R
 unique(as.character(iris$Species))
 > [1] "setosa"     "versicolor" "virginica"
@@ -324,6 +327,8 @@ c(1, 2, NA, 3, 4, '', 5, 'N/A', 6) %>% na.rm
 
 #### `apply_over_vars`
 
+Apply a specific function over variables within a dataframe.
+
 ```R
 apply_over_vars(iris, c("Petal.Length", "Petal.Width"), mean)
 > $Petal.Length
@@ -335,6 +340,8 @@ apply_over_vars(iris, c("Petal.Length", "Petal.Width"), mean)
 
 
 #### `cut3`
+
+Separate a vector into even-ish groups.
 
 ```R
 cut3(seq(10), 4)
@@ -349,7 +356,11 @@ cut3(seq(10), 4)
 > 
 > [[4]]
 > [1]  9 10
+```
 
+The values are sorted before separating into bins, which makes it ideal for aggregating based on quantiles:
+
+```R
 lapply(cut3(iris$Petal.Width, 5), mean)
 > [[1]]
 > [1] 0.1833333
