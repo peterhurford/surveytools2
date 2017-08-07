@@ -1,6 +1,6 @@
 #### v0.5.2
 
-* Extends `tab` and `ctab` to take an argument `filters()` containing filters for the data. For example: `tab(iris, filters(Species %not_in% "virginica", Petal.Width > 0.1), Species)`.
+* Extends `tab` and `ctab` to take an argument `filters()` containing filters for the data. This will filter the dataframe and print out the list of filters. For example, try `tab(iris, filters(Species %not_in% "virginica", Petal.Width > 0.2), Species)` to look at the Species when excluding virginia and all `Petal.Length` below 0.2.
 
 #### v0.5.1
 
