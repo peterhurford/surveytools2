@@ -1,3 +1,7 @@
+#### v0.5.2
+
+* Extends `tab` and `ctab` to take an argument `filters()` containing filters for the data. For example: `tab(iris, filters(Species %not_in% "virginica", Petal.Width > 0.1), Species)`.
+
 #### v0.5.1
 
 * Adds `nas_are_zeros` to convert NAs to zeros.
