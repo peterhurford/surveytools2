@@ -6,17 +6,17 @@
 
 *Major*
 
-* `drop_values` can drop individual values from a variable.
-* `apply_over_vars` allows you to apply a function over variables in a dataframe by specifying the names of the variables.
-* `cut3` supports splitting a vector into roughly even-sized bins.
+* Adds `drop_values` to drop individual values from a variable.
+* Adds `apply_over_vars` to apply a function over variables in a dataframe by specifying the names of the variables.
+* Adds `cut3` to split a vector into roughly even-sized bins.
 
 *Minor*
 
-* Fixed a bug that prevented `response_rate` from working.
-* Fixed a bug that prevented NA values from being printed in the table when `na.rm = FALSE`.
-* `swap_by_value` can now swap for multiple variables.
-* `num_over_zero` now has a `na.rm` parameter.
-* `breakdown` now handles passing in the variable as a string.
+* Fixes a bug that prevented `response_rate` from working.
+* Fixes a bug that prevented NA values from being printed in the table when `na.rm = FALSE`.
+* Extends `swap_by_value` to swap for multiple variables.
+* Extends `num_over_zero` to have a `na.rm` parameter.
+* Extends `breakdown` to handle passing in the variable as a string.
 
 
 
@@ -27,41 +27,42 @@
 
 #### v0.4.16
 
-* `tab` and `comparison_table` get a parameter `top` that can constrain the number of levels outputted, putting all minor levels in a single bin called "Other".
+* Extends `tab` and `comparison_table` to have a parameter `top` that can constrain the number of levels outputted, putting all minor levels in a single bin called "Other".
 * Fixes printing of variable names in a table that involve a logical operator.
-* `na.rm = TRUE` now works in `comparison_table`.
+* Fixes `na.rm = TRUE` in `comparison_table`.
 
 #### v0.4.15
 
-* `var_summary` no longer tracks the `class` of the object.
-* `var_summary` now reports the number of NAs and the number of values > 0 for numeric variables when called with `verbose = TRUE`.
-* `var_summary` now reports the number of NAs for non-numeric variables when called with `verbose = TRUE`.
+* Extends `var_summary` to report the number of NAs and the number of values > 0 for numeric variables when called with `verbose = TRUE`.
+* Extends `var_summary` to report the number of NAs for non-numeric variables when called with `verbose = TRUE`.
+* Reduces `var_summary` to no longer track the `class` of the object.
 
 #### v0.4.14
 
-* `var_summary` no longer displays a table of numeric variables (as originally intended).
-* `var_summary` returns as a named vector if possible.
-* `var_summary` no longer supports `serialize`.
+* Extends `var_summary` returns as a named vector if possible.
+* Reduces `var_summary` to no longer display a table of numeric variables (as originally intended).
+* Reduces `var_summary` to no longer supports `serialize`.
 
 #### v0.4.13
 
-* `swap_by_value` now no longer uses direct substitution and enforces a correct swap_list.
+* Extends `swap_by_value` to enforce a correct swap_list.
+* Reduces `swap_by_value` to no longer use direct substitution.
 
 #### v0.4.12
 
-* `swap_by_value` can now swap based on a grep-pattern.
+* Extends `swap_by_value` to swap based on a grep-pattern.
 
 #### v0.4.11
 
-* `get_vars` now supports multiple patterns passed as a vector.
+* Extends `get_vars` to support multiple patterns passed as a vector.
 
 ## v0.4.10
 
-* Added a function `fish_for_correlations` that analyzes a dataframe for correlations.
-* Added `get_vars` to streamline finding all names in a dataframe that match a pattern.
-* Added `%not_in%`, the opposite of `%in%`.
-* Added `data_summary` to extend `var_summary` to an entire dataframe.
-* Removed some features of `var_summary`, restore them by using `verbose = TRUE`.
+* Adds `fish_for_correlations` that analyzes a dataframe for correlations.
+* Adds `get_vars` to streamline finding all names in a dataframe that match a pattern.
+* Adds `%not_in%`, the opposite of `%in%`.
+* Adds `data_summary` to extend `var_summary` to an entire dataframe.
+* Reduces ome features of `var_summary`, restore them by using `verbose = TRUE`.
 * (Note: the `.10` minor versioning for this release was a mistake.)
 
 
@@ -69,58 +70,60 @@
 
 #### v0.3.10
 
-* Bugfix for `swap_by_value` when the dataframe has NAs.
+* Fixes `swap_by_value` when the dataframe has NAs.
 
 #### v0.3.7-9
 
-* `replace` now takes column name via NSE.
-* Bugfix for `replace`.
+* Extends `replace` to now take column name via NSE.
+* Fixes `replace` implementation.
 
 #### v0.3.6
 
-* Add `replace` to swap values within a dataframe.
+* Adds `replace` to swap values within a dataframe.
 
 #### v0.3.5
 
-* Add tibble dependency.
+* Adds tibble dependency.
 
 #### v0.3.4
 
-* Make `breakdown` and `num_answers` use NSE by default (and provide `breakdown_` and `num_answers_` for non-NSE).
+* Extends `breakdown` and `num_answers` to use NSE by default.
+* Adds `breakdown_` and `num_answers_` for non-NSE.
 
 #### v0.3.3
 
-* Add magrittr package to imports.
+* Adds magrittr package to imports.
 
 #### v0.3.2
 
-* It is announced in the table if NAs were removed.
+* Extends `ctab` and `tab` to announce in printed table if NAs were removed.
 
 ## v0.3.0-1
 
-* Add `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
+* Adds `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
 
 
 
 
 #### v0.2.4
 
-* `tab` and `ctab` now take a (functional) `na.rm` parameter.
+* Extends `tab` and `ctab` to now take a (functional) `na.rm` parameter.
 
 #### v0.2.2-3
 
-* `num_respondants` was renamed `num_respondents` (the correct spelling).
+* Renames `num_respondants` to `num_respondents`.
 
 #### v0.2.1
 
-* Export `ctab` (`comparison_table` alias).
+* Adds `ctab` as an alias for  `comparison_table`.
 
 ## v0.2
 
-* `dplyr_table` has been renamed `tab` and prints more cleanly.
-* `tab` and `comparison_table` can now take expressions (e.g., `tab(iris, Species == "setosa")`)
-* `ctab` and `ctable` are now aliases for `comparison_table`.
-* `comparison_table` supports NSE for variable names and can infer the comparison type.
-* `comparison_table` now prints out the median for continuous data too.
-* "discrete" can now be used as a synonym for "continuous" when specifying a type for `comparison_table`
-* `comparison_table` can no longer take in vectors directly.
+* Renames `dplyr_table` to `tab`.
+* Adds `ctab` and `ctable` as aliases for `comparison_table`.
+* Extends `tab` to print more cleanly.
+* Extends `tab` and `ctab` to take expressions (e.g., `tab(iris, Species == "setosa")`)
+* Extends `comparison_table` to support NSE for variable names and can infer the comparison type.
+* Extends `comparison_table` to print out the median for continuous data too.
+* Extends `comparison_table` to allow "discrete" as a synonym for "continuous" when specifying a type.
+* Reduces `comparison_table` to no longer take in vectors directly.
