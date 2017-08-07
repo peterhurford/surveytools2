@@ -10,7 +10,7 @@ tab(.data, ..., top = 0, freq = TRUE, percent = FALSE, byrow = TRUE,
 \arguments{
 \item{.data}{data frame. The data to put in the table.}
 
-\item{...}{The variables to plot in the table. Currently supports one or two variables.}
+\item{...}{The variables to plot in the table, plus any relevant filters contained within `filters()`. Currently supports one or two variables.}
 
 \item{top}{numeric. If >0, all vectors will only print the top N elements and all other elements will be called "Other", where N is the value for top.}
 
