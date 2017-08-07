@@ -26,7 +26,8 @@ apply_filters <- function(.data, dots) {
 	if (!is.null(filters)) {
 		for (filter in filter_list) {
       for (i in seq_along(filter)) {
-        if (exists(as.character(filter[[i]]), filter_env)) {
+        if (length(as.character(filter[[i]])) == 1 &&
+              exists(as.character(filter[[i]]), filter_env)) {
           filter[[i]] <- get(as.character(filter[[i]]), filter_env)
         }
       }
