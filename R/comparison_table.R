@@ -1,18 +1,22 @@
 #' Compares a variable across a group, both visually and with an appropriate statistical test.
 #'
 #' @param data data frame. The data to test.
-#' @param variable. If character, the name of the variable to test.
-#' @param groupby character. If character, the name of the variable to group `variable` by.
+#' @param ... The variables to compare, plus any relevant filters contained within `filters()`. Currently supports one or two variables.
 #' @param type character. "Continuous" if `variable` is continuous data (like age), or "categorical" / "discrete" if `variable` is categorical data (like hometown).
 #'   This can be automatically inferred by whether the variable is numeric or not.
 #' @param na.rm logical. Whether or not to remove NAs from the variables being considered.
 #' @param top numeric. See documentation for `tab`.
 #' @aliases ctable ctab
 #' @export
-comparison_table <- function(data, variable, groupby, type = NULL, na.rm = FALSE, top = 0) {
-  variable <- lazyeval::as.lazy(substitute(variable))
-  groupby  <- lazyeval::as.lazy(substitute(groupby))
-  comparison_table_(data, variable, groupby, type = type, na.rm = na.rm, top = top)
+comparison_table <- function(.data, ..., type = NULL, na.rm = FALSE, top = 0) {
+  dots <- lazyeval::lazy_dots(...)
+  filter_data <- apply_filters(.data, dots)
+  .data <- filter_data$data
+  dots <- filter_data$dots
+  .print_filters <- filter_data$print_filters
+  variable <- dots[[1]]
+  groupby  <- dots[[2]]
+  comparison_table_(.data, variable, groupby, type = type, na.rm = na.rm, top = top, .print_filters = .print_filters)
 }
 
 #' @import checkr magrittr
@@ -22,9 +26,10 @@ comparison_table_ <- checkr::ensure(
     groupby %is% simple_string || groupby %is% lazy,
     type %is% NULL || type %in% c("continuous", "discrete", "categorical"),
     na.rm %is% logical,
-    top %is% numeric, top >= 0
+    top %is% numeric, top >= 0,
+    is.null(.print_filters) || is.character(.print_filters)
   ),
-  function(data, variable, groupby, type = NULL, na.rm = FALSE, top = 0) {
+  function(data, variable, groupby, type = NULL, na.rm = FALSE, top = 0, .print_filters = NULL) {
     if (variable %is% lazy) {
       x <- lazyeval::lazy_eval(variable, data = data)
       y <- lazyeval::lazy_eval(groupby, data = data)
@@ -49,7 +54,8 @@ comparison_table_ <- checkr::ensure(
     if (identical(type, "discrete")) { type <- "categorical" }
 
     out <- list(
-      table = table_for(data, variable, groupby, type = type, na.rm = na.rm, top = top),
+      table = table_for(data, variable, groupby, type = type, na.rm = na.rm,
+                        top = top, .print_filters = .print_filters),
       stat  = stat_for(x, y, type = type)
     )
     class(out) <- "comparison_table"
@@ -60,14 +66,19 @@ stat_for <- function(x, y, type) {
   if (identical(type, "continuous")) { stat_for_continuous(x, y) }
   else { stat_for_categorical(x, y) }
 }
-stat_for_continuous <- function(x, y) {  (x ~ y) %>% lm %>% summary }
+stat_for_continuous <- function(x, y) { summary(lm(x ~ y)) }
 stat_for_categorical <- function(x, y) { chisq.test(x, y) }
 
-table_for <- function(data, variable, groupby, type, na.rm, top) {
-  if (identical(type, "continuous")) { table_for_continuous(data, variable, groupby, na.rm = na.rm) }
-  else { table_for_categorical(data, variable, groupby, na.rm = na.rm, top = top) }
+table_for <- function(data, variable, groupby, type, na.rm, top, .print_filters = NULL) {
+  if (identical(type, "continuous")) {
+    table_for_continuous(data, variable, groupby, na.rm = na.rm, .print_filters = .print_filters)
+  }
+  else {
+    table_for_categorical(data, variable, groupby, na.rm = na.rm,
+                          top = top, .print_filters = .print_filters)
+  }
 }
-table_for_continuous <- function(data, variable, groupby, na.rm) {
+table_for_continuous <- function(data, variable, groupby, na.rm, .print_filters = NULL) {
   t <- dplyr::select_(data, get_base_varname(variable), get_base_varname(groupby))
   if (isTRUE(na.rm)) {
     t <- na.omit(t)
@@ -78,10 +89,13 @@ table_for_continuous <- function(data, variable, groupby, na.rm) {
   attr(t, "left_var") <- get_varname(variable)
   attr(t, "upper_var") <- get_varname(groupby)
   attr(t, "na.rm") <- TRUE
+  attr(t, "filters") <- .print_filters
   t
 }
-table_for_categorical <- function(data, variable, groupby, na.rm = FALSE, top = 0) {
-  tab_(data, .dots = list(variable, groupby), percent = TRUE, freq = FALSE, byrow = FALSE, na.rm = na.rm, top = top)
+table_for_categorical <- function(data, variable, groupby, na.rm = FALSE,
+                                  top = 0, .print_filters = NULL) {
+  tab_(data, .dots = list(variable, groupby), percent = TRUE, freq = FALSE,
+       byrow = FALSE, na.rm = na.rm, top = top, .print_filters = .print_filters)
 }
 
 #' @export
