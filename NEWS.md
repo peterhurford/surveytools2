@@ -1,3 +1,7 @@
+#### v0.5.3
+
+* Fixes `tab` and `ctab` when using `filters()` with a length > 1 vector.
+
 #### v0.5.2
 
 * Extends `tab` and `ctab` to take an argument `filters()` containing filters for the data. This will filter the dataframe and print out the list of filters. For example, try `tab(iris, filters(Species %not_in% "virginica", Petal.Width > 0.2), Species)` to look at the Species when excluding virginia and all `Petal.Length` below 0.2.
