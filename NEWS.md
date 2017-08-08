@@ -1,3 +1,7 @@
+#### v0.5.4
+
+* Extends `tab` and `ctab` to allow `filter()` as an alias for `filters()`.
+
 #### v0.5.3
 
 * Fixes `tab` and `ctab` when using `filters()` with a length > 1 vector.
