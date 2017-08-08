@@ -12,7 +12,7 @@ get_base_varname <- function(dot) {
 }
 
 apply_filters <- function(.data, dots) {
-	filters_idx <- unlist(lapply(lapply(lapply(lapply(dots, `[[`, "expr"), as.character), `%in%`, "filters"), any))
+	filters_idx <- unlist(lapply(lapply(lapply(lapply(dots, `[[`, "expr"), as.character), function(x) grepl("filter", x)), any))
 	if (any(filters_idx)) {
 		filters <- dots[[which(filters_idx)]]
     filter_list <- as.list(filters$expr[-1])
