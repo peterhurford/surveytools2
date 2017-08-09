@@ -1,3 +1,7 @@
+#### v0.5.6
+
+* Fixes `ctab` to properly create variables when analyzing continuous data.
+
 #### v0.5.5
 
 * Exports `comparison_table_` as a NSE-safe companion to `comparison_table`.
