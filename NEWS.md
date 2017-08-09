@@ -1,3 +1,7 @@
+#### v0.5.5
+
+* Exports `comparison_table_` as a NSE-safe companion to `comparison_table`.
+
 #### v0.5.4
 
 * Extends `tab` and `ctab` to allow `filter()` as an alias for `filters()`.

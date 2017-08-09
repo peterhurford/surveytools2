@@ -19,6 +19,7 @@ comparison_table <- function(.data, ..., type = NULL, na.rm = FALSE, top = 0) {
   comparison_table_(.data, variable, groupby, type = type, na.rm = na.rm, top = top, .print_filters = .print_filters)
 }
 
+#' @export
 #' @import checkr magrittr
 comparison_table_ <- checkr::ensure(
   pre = list(data %is% dataframe,
