@@ -80,13 +80,17 @@ table_for <- function(data, variable, groupby, type, na.rm, top, .print_filters 
   }
 }
 table_for_continuous <- function(data, variable, groupby, na.rm, .print_filters = NULL) {
-  t <- dplyr::select_(data, get_base_varname(variable), get_base_varname(groupby))
+  t <- dplyr::select_(data, get_base_varname(variable), get_base_varname(groupby)) %>%
+         dplyr::mutate_(ctab__internal_variable = variable$expr) %>%
+         dplyr::mutate_(ctab__internal_groupby = groupby$expr) %>%
+         dplyr::select(ctab__internal_variable, ctab__internal_groupby)
   if (isTRUE(na.rm)) {
     t <- na.omit(t)
   }
-  t <- dplyr::group_by_(t, get_base_varname(groupby)) %>%
+  t <- dplyr::group_by(t, ctab__internal_groupby) %>%
          dplyr::summarise_each(., dplyr::funs(
-           mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE)))
+           length(.), mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE))) %>%
+         setNames(c(get_varname(groupby), "N", "mean", "median", "sd"))
   attr(t, "left_var") <- get_varname(variable)
   attr(t, "upper_var") <- get_varname(groupby)
   attr(t, "na.rm") <- TRUE
