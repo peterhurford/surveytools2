@@ -89,8 +89,8 @@ table_for_continuous <- function(data, variable, groupby, na.rm, .print_filters 
   }
   t <- dplyr::group_by(t, ctab__internal_groupby) %>%
          dplyr::summarise_each(., dplyr::funs(
-           mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE))) %>%
-         setNames(c(get_varname(groupby), "mean", "median", "sd"))
+           length(.), mean(., na.rm = TRUE), median(., na.rm = TRUE), sd(., na.rm = TRUE))) %>%
+         setNames(c(get_varname(groupby), "N", "mean", "median", "sd"))
   attr(t, "left_var") <- get_varname(variable)
   attr(t, "upper_var") <- get_varname(groupby)
   attr(t, "na.rm") <- TRUE

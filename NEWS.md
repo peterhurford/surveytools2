@@ -1,6 +1,7 @@
 #### v0.5.6
 
 * Fixes `ctab` to properly create variables when analyzing continuous data.
+* Extends `ctab` to count the number of cells when analyzing continuous data.
 
 #### v0.5.5
 
