@@ -1,3 +1,7 @@
+#### v0.5.7
+
+* Removes `gather`.
+
 #### v0.5.6
 
 * Fixes `ctab` to properly create variables when analyzing continuous data.
