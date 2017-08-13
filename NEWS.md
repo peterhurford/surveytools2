@@ -1,7 +1,10 @@
-#### v0.5.7
+## v0.6
 
 * Adds `drop_na_cols`, which drops columns from a dataframe that are entirely NA.
 * Removes `gather`.
+
+
+
 
 #### v0.5.6
 
