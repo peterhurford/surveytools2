@@ -204,11 +204,11 @@ Swaps particular values with other values within the dataframe.  Useful for impu
 
 ```R
 data(iris)   # Reset iris
-iris %>% gather(Species) %>% table
+iris %>% select(Species) %>% table
 >     setosa versicolor  virginica
 >        50         50         50
-iris %<>% swap_by_value('Species', list('setosa' = 'virginica'))
-iris %>% gather(Species) %>% table
+iris %>% swap_by_value('Species', list('setosa' = 'virginica')) %>%
+  select(Species) %>% table
 >     setosa versicolor  virginica
 >        0         50         100
 ```
