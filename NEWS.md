@@ -1,3 +1,7 @@
+#### v0.6.0.1
+
+* Fixes printing of `comparison_table` to print out the filter names in cases of numeric data.
+
 ## v0.6
 
 * Adds `drop_na_cols`, which drops columns from a dataframe that are entirely NA.
