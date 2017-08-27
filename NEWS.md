@@ -1,3 +1,8 @@
+#### v0.6.1
+
+* Adds `chisq_test` to allow a chi-square test between two different vectors.
+* Fixes `comparison_table` to use a correct chi-square test.
+
 #### v0.6.0.1
 
 * Fixes printing of `comparison_table` to print out the filter names in cases of numeric data.
