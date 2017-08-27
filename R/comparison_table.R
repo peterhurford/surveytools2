@@ -117,8 +117,11 @@ print.comparison_table <- function(x) {
     if (!is.null(attr(x$table, "upper_var"))) {
       cat(" ### "); cat(attr(x$table, "upper_var"))
     }
-    if (isTRUE(attr(x, "na.rm"))) { cat(" (nas removed)") }
     cat("\n")
+    if (!is.null(attr(x$table, "filters"))) {
+      cat("Filters: ", attr(x$table, "filters"), "\n")
+    }
+    if (isTRUE(attr(x, "na.rm"))) { cat(" (nas removed)") }
     # Hack to not print the source on the tibble::data_frame
     print(tibble::trunc_mat(x$table, n = NULL, width = NULL))
   } else {
