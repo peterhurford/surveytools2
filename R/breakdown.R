@@ -16,7 +16,7 @@ breakdown <- function(df, variable, breakdowns) {
 breakdown_ <- function(df, variable, breakdowns) {
   sapply(breakdowns, function(x) {
     y <- as.numeric(df[[variable]])
-    paste(length(y[y > x]), 'respondents >= ', x)
+    paste(sum(y >= x, na.rm = TRUE), 'respondents >= ', x)
   })
 }
 

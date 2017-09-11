@@ -1,3 +1,7 @@
+#### v0.6.2
+
+* Fixes a bug in how `breakdown` is calculated.
+
 #### v0.6.1
 
 * Adds `chisq_test` to allow a chi-square test between two different vectors.

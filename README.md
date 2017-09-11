@@ -252,8 +252,10 @@ Breakdown values of a variable by the number of people who have that value or a 
 
 ```R
 iris %>% breakdown('Sepal.Length', seq(10))
->  [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3" "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"  "12 respondents >=  7"
->  [8] "0 respondents >=  8"   "0 respondents >=  9"   "0 respondents >=  10"
+ [1] "150 respondents >=  1" "150 respondents >=  2" "150 respondents >=  3"
+ [4] "150 respondents >=  4" "118 respondents >=  5" "61 respondents >=  6"
+ [7] "12 respondents >=  7"  "0 respondents >=  8"   "0 respondents >=  9"
+[10] "0 respondents >=  10"
 ```
 
 
