@@ -1,3 +1,8 @@
+#### v0.6.3
+
+* Adds `t_test` to allow a t-test between two different vectors from the same data.
+* Amends `comparison_table` to use a t-test on numeric data when the grouping variable only has two unique values.
+
 #### v0.6.2
 
 * Fixes a bug in how `breakdown` is calculated.
