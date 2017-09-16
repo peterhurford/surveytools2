@@ -68,7 +68,10 @@ stat_for <- function(x, y, type) {
   else { stat_for_categorical(x, y) }
 }
 stat_for_continuous <- function(x, y) { summary(lm(x ~ y)) }
-stat_for_categorical <- function(x, y) { chisq_test(x, y) }
+stat_for_categorical <- function(x, y) {
+  if (length(unique(x)) == 2 && length(unique(y)) == 2) { t_test(x, y) }
+  else { chisq_test(x, y) }
+}
 
 table_for <- function(data, variable, groupby, type, na.rm, top, .print_filters = NULL) {
   if (identical(type, "continuous")) {
