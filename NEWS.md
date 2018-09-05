@@ -1,3 +1,10 @@
+## v0.7
+
+* Adds `reverse_code`.
+
+
+
+
 #### v0.6.3
 
 * Adds `t_test` to allow a t-test between two different vectors from the same data.

@@ -2,7 +2,7 @@ Package: surveytools2
 Title: Surveytools2 is a collection of R functions that make working with
     dplyr on survey analysis just a little bit better.  Inspired by dplyr
     and my previous surveytools package.
-Version: 0.6.3
+Version: 0.7
 Authors@R: "Peter Hurford <peter@peterhuford.com> [aut, cre]"
 Description: See title.
 Depends:
