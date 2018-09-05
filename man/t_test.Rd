@@ -4,12 +4,12 @@
 \alias{t_test}
 \title{Reformat stats::t.test to accept inputs as two vectors.}
 \usage{
-t_test(vector1, vector2)
+t_test(variable, groupby)
 }
 \arguments{
-\item{vector1.}{The first vector to compare.}
+\item{variable.}{A numeric vector to compare means.}
 
-\item{vector2.}{The other vector to compare.}
+\item{groupby.}{A vector to group by.}
 }
 \value{
 t-test on the joint frequency table of the two vectors.
