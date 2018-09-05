@@ -198,6 +198,26 @@ df %>% response_rate('q1')
 ```
 
 
+#### `reverse_code`
+
+Reverse code a scale.
+
+```R
+tab(df, scale)
+> scale
+> 
+> <NA>    1    2    3    4    5
+> 1250  874  374   51   37   21
+
+scale_r <- reverse_code(scale)
+tab(df, scale_r)
+> scale_rr
+> 
+> <NA>    5    4    3    2    1
+> 1250  874  374   51   37   21
+```
+
+
 #### `swap_by_value`
 
 Swaps particular values with other values within the dataframe.  Useful for imputation.
