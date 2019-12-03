@@ -1,8 +1,11 @@
+## v0.8
+
+* Adds `nas_are_false`.
+
+
 ## v0.7
 
 * Adds `reverse_code`.
-
-
 
 
 #### v0.6.3
@@ -27,8 +30,6 @@
 
 * Adds `drop_na_cols`, which drops columns from a dataframe that are entirely NA.
 * Removes `gather`.
-
-
 
 
 #### v0.5.6
@@ -56,6 +57,7 @@
 
 * Adds `nas_are_zeros` to convert NAs to zeros.
 
+
 ## v0.5
 
 *Major*
@@ -71,8 +73,6 @@
 * Extends `swap_by_value` to swap for multiple variables.
 * Extends `num_over_zero` to have a `na.rm` parameter.
 * Extends `breakdown` to handle passing in the variable as a string.
-
-
 
 
 #### v0.4.17
@@ -120,8 +120,6 @@
 * (Note: the `.10` minor versioning for this release was a mistake.)
 
 
-
-
 #### v0.3.10
 
 * Fixes `swap_by_value` when the dataframe has NAs.
@@ -155,8 +153,6 @@
 ## v0.3.0-1
 
 * Adds `var_summary` and `summary_csv` from the (now defunct) summarizeR package.
-
-
 
 
 #### v0.2.4
