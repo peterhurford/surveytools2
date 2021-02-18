@@ -7,7 +7,7 @@ This package is not yet available from CRAN. To install the latest development b
 
 ```R
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github('peterhurford', 'surveytools')
+devtools::install_github("peterhurford/surveytools2")
 ```
 
 ## Dplyr
